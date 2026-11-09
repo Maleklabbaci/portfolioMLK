@@ -117,12 +117,16 @@
       const lbl = document.querySelector('.cv-toggle__label');
       if (lbl) lbl.textContent = dict['cv.hide'];
     }
-    ['langToggle','menuLangToggle'].forEach(id => {
-      const b = document.getElementById(id);
-      if (!b) return;
-      b.textContent = lang === 'fr' ? 'EN' : 'FR';
+    const btn = document.getElementById('langToggle');
+    if (btn) {
+      btn.textContent = lang === 'fr' ? 'EN' : 'FR';
       const label = lang === 'fr' ? 'Switch to English' : 'Passer en français';
-      b.title = label; b.setAttribute('aria-label', label);
+      btn.title = label; btn.setAttribute('aria-label', label);
+    }
+    document.querySelectorAll('[data-set-lang]').forEach(b => {
+      const active = b.dataset.setLang === lang;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', String(active));
     });
     updateClock();
     try { localStorage.setItem('pf2-lang', lang); } catch (e) {}
@@ -260,8 +264,7 @@
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
   document.getElementById('langToggle').addEventListener('click', () => applyLang(lang === 'fr' ? 'en' : 'fr'));
-  const menuLangBtn = document.getElementById('menuLangToggle');
-  if (menuLangBtn) menuLangBtn.addEventListener('click', () => { applyLang(lang === 'fr' ? 'en' : 'fr'); setMenu(false); });
+  document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.setLang)));
 
   /* ---------------------------------------------------------
      4. Parcours dépliable

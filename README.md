@@ -29,14 +29,14 @@ très peu de texte. Le contenu vient de `RESUMEanglais.pdf` (ton CV anglais) et 
   les libellés de section s’empilent, les liens de contact passent en grille 2 colonnes.
   Testé à 360 et 390 px : aucun débordement horizontal.
 - **Accent rouge** : le cobalt (#2546D8) devient **#D0342C** partout (liens, surbrillances, barre de progression, lignes, points des étiquettes, favicon).
-- **Bulle WhatsApp** : bouton flottant en bas à droite (`wa.me/213697660969`), libellé FR « Discute avec moi » / EN « Chat with me », vert WhatsApp, hors reduced-motion sans effet ping.
+- **Bulle WhatsApp** : bouton flottant en bas à droite (`wa.me/213697660969`), **logo officiel WhatsApp** (glyph SVG white sur disque vert), libellé FR « Discute avec moi » / EN « Chat with me », hors reduced-motion sans effet ping.
 - **Bissan** : la capture est une **planche de 2 visuels** (comme MS Cherchell) — Visuel Fraîcheur (« ici commence ton projet ») + coaching / coworking.
 - **Photos personnelles** (hero + À propos) et mentions **CEO & Founder d'iVISION · Sawtify · eFOLIO**
   (header desktop, bio, footer).
 - **Étiquettes nom sur les photos de projets** : chaque capture affiche un badge sombre « NOM DU PROJET »
   avec point cobalt (galerie desktop, liste mobile, grille portfolio).
-- **Mobile** : header compact (prénom + burger, 56 px), sélecteur de langue déplacé dans le menu
-  (« EN »), barre de progression en filet simple sans halo.
+- **Mobile** : header compact (prénom + burger, 56 px) ; **langue FR/EN segmentée tout en haut du menu**
+  (FR actif par défaut), barre de progression en filet simple sans halo.
 - **Animations au scroll & au survol** (zéro librairie, 100 % CSS + JS natif) :
   révélation au défilement avec clip + fondu et **stagger** de 70 ms par élément,
   **ligne cobalt qui se dessine** sous les en-têtes et les cartes, **halo cobalt qui suit
