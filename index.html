@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Abdelmalek Labbaci — fondateur technique, développeur SaaS, growth & IA à Alger.">
+  <meta name="theme-color" content="#EFEDE7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Abdelmalek Labbaci — Portfolio">
+  <meta property="og:description" content="Fondateur technique, développeur SaaS, growth & IA à Alger. Fondateur d'iVISION Agency.">
+  <meta property="og:image" content="apercu.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Abdelmalek Labbaci — Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261109c">
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <div class="header__inner wrap">
+      <a class="brand" href="#top" aria-label="Retour en haut">
+        <strong class="brand__full" data-bind="name">Abdelmalek Labbaci</strong><strong class="brand__short" aria-hidden="true" style="display:none">Abdelmalek</strong>
+        <small data-bind="role">CEO &amp; Founder · iVISION · Sawtify · eFOLIO</small>
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#index" data-i18n="nav.index">Index</a>
+        <a href="#work" data-i18n="nav.work">Travaux</a>
+        <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="#about" data-i18n="nav.about">À propos</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a class="nav__cv" data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span data-i18n="nav.cv">CV</span> ↗</a>
+      </nav>
+      <div class="header__right">
+        <button class="lang" id="langToggle" type="button" aria-label="Switch language">EN</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span class="menu-btn__label">MENU</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MENU MOBILE ================= -->
+  <div class="menu" id="mobileMenu" aria-hidden="true">
+    <nav aria-label="Navigation mobile">
+      <a href="#index"><span>01</span><span data-i18n="nav.index">Index</span></a>
+      <a href="#work"><span>02</span><span data-i18n="nav.work">Travaux</span></a>
+      <a href="#portfolio"><span>03</span><span data-i18n="nav.portfolio">Portfolio</span></a>
+      <a href="#about"><span>04</span><span data-i18n="nav.about">À propos</span></a>
+      <a href="#contact"><span>05</span><span data-i18n="nav.contact">Contact</span></a>
+      <a data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span>06</span><span data-i18n="nav.cv">CV</span></a>
+    </nav>
+    <button class="menu__lang" id="menuLangToggle" type="button">EN</button>
+    <div class="menu__foot"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span data-bind="location">Alger, Algérie</span></div>
+  </div>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <div class="hero__media"><img src="assets/img/abdelmalek-hero.webp" alt="Abdelmalek Labbaci" fetchpriority="high"></div>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__topshade" aria-hidden="true"></div>
+      <div class="hero__content wrap">
+        <h1 class="hero__title" data-anim>
+          <span data-bind="firstName">Abdelmalek</span>
+          <em data-bind="lastName">Labbaci.</em>
+        </h1>
+        <div class="hero__foot" data-anim>
+          <p class="hero__sub" data-i18n="hero.sub">Développement · IA &amp; automatisation · Growth · Direction artistique</p>
+          <a class="hero__scroll" href="#index"><span data-i18n="hero.scroll">DÉFILER</span><span class="hero__scroll-line"></span><span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INDEX DES 4 PÔLES ================= -->
+    <section class="index-section" id="index">
+      <div class="wrap">
+        <div class="sec-head line" data-anim>
+          <span data-i18n="index.label">QUATRE MÉTIERS</span>
+          <span>01 — 04</span>
+        </div>
+        <ul class="index-list" id="indexList">
+          <li class="index-row" data-index="0"><a href="#work"><span class="n">01</span><span class="t" data-i18n="p1">Développement Web &amp; Logiciel</span><span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li class="index-row" data-index="1"><a href="#work"><span class="n">02</span><span class="t" data-i18n="p2">IA &amp; Automatisation</span><span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li class="index-row" data-index="2"><a href="#work"><span class="n">03</span><span class="t" data-i18n="p3">Marketing Digital, Growth &amp; E-commerce</span><span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li class="index-row" data-index="3"><a href="#work"><span class="n">04</span><span class="t" data-i18n="p4">Direction Artistique &amp; Multimédia</span><span class="arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+        <p class="index-note"><span class="note--hover" data-i18n="index.note">Survole un pôle pour l'aperçu · clique pour voir le projet</span><span class="note--touch" data-i18n="index.noteTouch">Touche un pôle pour voir le projet</span></p>
+      </div>
+      <div class="preview" id="preview" aria-hidden="true"><img id="previewImg" src="assets/img/real-movesmart.webp" alt=""></div>
+    </section>
+
+    <!-- ================= GALERIE PLEIN ÉCRAN ================= -->
+    <section class="stage" id="work">
+      <div class="stage__viewport">
+        <div class="stage__images">
+          <figure class="stage__img is-active" data-i="0">
+            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">movesmart-ecru.vercel.app</span></div>
+              <div class="shot__screen"><img src="assets/img/real-movesmart.webp" alt="Capture complète du site MoveSmart, immobilier à Dubaï" loading="eager"></div><span class="shot__tag">MoveSmart</span></div>
+          </figure>
+          <figure class="stage__img" data-i="1">
+            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio sites web</span></div>
+              <div class="shot__screen"><img src="assets/img/real-jawebflow.webp" alt="Capture complète du site JawebFlow, assistant de discussion pour entreprises" loading="eager"></div><span class="shot__tag">JawebFlow</span></div>
+          </figure>
+          <figure class="stage__img" data-i="2">
+            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">fidali.vercel.app</span></div>
+              <div class="shot__screen"><img src="assets/img/real-fidali.webp" alt="Capture complète du site Fidali, programme de fidélité digital" loading="eager"></div><span class="shot__tag">Fidali</span></div>
+          </figure>
+          <figure class="stage__img" data-i="3">
+            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio social &amp; vidéo</span></div>
+              <div class="shot__screen"><img src="assets/img/real-msc.webp" alt="Deux affiches Match Day MS Cherchell, présentées en planche" loading="eager"></div><span class="shot__tag">MS Cherchell</span></div>
+          </figure>
+        </div>
+        <div class="stage__shade" aria-hidden="true"></div>
+        <div class="stage__top wrap">
+          <span data-i18n="work.label">PROJETS RÉELS · iVISION AGENCY</span>
+          <span>CAPTURES RÉELLES</span>
+        </div>
+        <div class="stage__captions">
+          <div class="cap is-active" data-i="0">
+            <span class="cap__meta">01 / <span data-i18n="cat1">DÉVELOPPEMENT &amp; SAAS</span></span>
+            <h2>MoveSmart</h2>
+            <p data-i18n="c1">Site vitrine immobilier pour Dubaï : présentation immersive, opportunités, journal et prise de contact.</p>
+            <a href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="cap" data-i="1">
+            <span class="cap__meta">02 / <span data-i18n="cat2">IA &amp; AUTOMATISATION</span></span>
+            <h2>JawebFlow</h2>
+            <p data-i18n="c2">Assistant de discussion pour entreprises : réponses en français et darija, démo et espace personnel.</p>
+            <a data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="cap" data-i="2">
+            <span class="cap__meta">03 / <span data-i18n="cat3">GROWTH &amp; E-COMMERCE</span></span>
+            <h2>Fidali</h2>
+            <p data-i18n="c3">Programme de fidélité digital : QR code intelligent, validation sécurisée et notifications en temps réel.</p>
+            <a href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="cap" data-i="3">
+            <span class="cap__meta">04 / <span data-i18n="cat4">DIRECTION ARTISTIQUE</span></span>
+            <h2>MS Cherchell</h2>
+            <p data-i18n="c4">Affiches match day et direction visuelle pour le club : compositing, lumière et typographie.</p>
+            <a data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="stage__rail">
+          <span class="rail__num" id="stageNum">01</span><span class="rail__total">/ 04</span>
+          <span class="rail__bar"><i id="railFill"></i></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TRAVAUX — VERSION MOBILE ================= -->
+    <section class="work-m" id="workMobile">
+      <div class="wrap">
+        <div class="sec-head line" data-anim><span data-i18n="work.label">PROJETS RÉELS · iVISION AGENCY</span><span data-i18n="folio.meta">CAPTURES RÉELLES</span></div>
+        <div class="work-m__list">
+          <article class="work-m__item line" data-anim>
+            <a class="work-m__shot" href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">movesmart-ecru.vercel.app</span></div>
+                <div class="shot__screen"><img src="assets/img/real-movesmart.webp" alt="Capture complète du site MoveSmart" loading="lazy"></div><span class="shot__tag">MoveSmart</span></div>
+            </a>
+            <div class="work-m__text">
+              <span class="work-m__meta">01 / <span data-i18n="cat1">DÉVELOPPEMENT &amp; SAAS</span></span>
+              <h2>MoveSmart</h2>
+              <p data-i18n="c1">Site vitrine immobilier pour Dubaï : présentation immersive, opportunités, journal et prise de contact.</p>
+              <a class="work-m__link" href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="work-m__item line" data-anim>
+            <a class="work-m__shot" href="https://ivision.agency/portfolio-sites-web-algerie.html" data-bind-href="portfolioSites" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio sites web</span></div>
+                <div class="shot__screen"><img src="assets/img/real-jawebflow.webp" alt="Capture complète du site JawebFlow" loading="lazy"></div><span class="shot__tag">JawebFlow</span></div>
+            </a>
+            <div class="work-m__text">
+              <span class="work-m__meta">02 / <span data-i18n="cat2">IA &amp; AUTOMATISATION</span></span>
+              <h2>JawebFlow</h2>
+              <p data-i18n="c2">Assistant de discussion pour entreprises : réponses en français et darija, démo et espace personnel.</p>
+              <a class="work-m__link" href="https://ivision.agency/portfolio-sites-web-algerie.html" data-bind-href="portfolioSites" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="work-m__item line" data-anim>
+            <a class="work-m__shot" href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">fidali.vercel.app</span></div>
+                <div class="shot__screen"><img src="assets/img/real-fidali.webp" alt="Capture complète du site Fidali" loading="lazy"></div><span class="shot__tag">Fidali</span></div>
+            </a>
+            <div class="work-m__text">
+              <span class="work-m__meta">03 / <span data-i18n="cat3">GROWTH &amp; E-COMMERCE</span></span>
+              <h2>Fidali</h2>
+              <p data-i18n="c3">Programme de fidélité digital : QR code intelligent, validation sécurisée et notifications en temps réel.</p>
+              <a class="work-m__link" href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="work-m__item line" data-anim>
+            <a class="work-m__shot" href="https://ivision.agency/portfolio-social-media-algerie.html" data-bind-href="portfolioSocial" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio social & vidéo</span></div>
+                <div class="shot__screen"><img src="assets/img/real-msc.webp" alt="Deux affiches Match Day MS Cherchell" loading="lazy"></div><span class="shot__tag">MS Cherchell</span></div>
+            </a>
+            <div class="work-m__text">
+              <span class="work-m__meta">04 / <span data-i18n="cat4">DIRECTION ARTISTIQUE</span></span>
+              <h2>MS Cherchell</h2>
+              <p data-i18n="c4">Affiches match day et direction visuelle pour le club : compositing, lumière et typographie.</p>
+              <a class="work-m__link" href="https://ivision.agency/portfolio-social-media-algerie.html" data-bind-href="portfolioSocial" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PORTFOLIO IVISION (captures réelles) ================= -->
+    <section class="folio" id="portfolio">
+      <div class="wrap">
+        <div class="sec-head line" data-anim>
+          <span data-i18n="folio.label">PORTFOLIO — iVISION AGENCY</span>
+          <span data-i18n="folio.meta">CAPTURES RÉELLES</span>
+        </div>
+        <div class="folio__head line" data-anim>
+          <h2 class="folio__title"><span data-i18n="folio.t1">Des projets,</span> <em data-i18n="folio.t2">en vrai.</em></h2>
+          <p class="folio__intro" data-i18n="folio.intro">Une sélection de sites et de créations sortis du studio iVISION. Clique sur une capture pour ouvrir le projet.</p>
+        </div>
+        <div class="folio__grid" id="captureGrid"></div>
+        <div class="folio__actions" data-anim>
+          <a class="folio__btn" data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btn1">Tout le portfolio sites web</span><span aria-hidden="true">↗</span></a>
+          <a class="folio__btn folio__btn--ghost" data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btn2">Portfolio social &amp; vidéo</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= À PROPOS + PARCOURS ================= -->
+    <section class="about" id="about">
+      <div class="about__col" data-reveal>
+        <span class="tag" data-i18n="about.tag">À PROPOS</span>
+        <h2 class="about__title"><span data-i18n="about.l1">Un profil,</span><em data-i18n="about.l2">quatre métiers.</em></h2>
+        <p class="about__text" data-i18n="about.text">Fondateur d'iVISION Agency : développement SaaS, automatisation IA et croissance de plus de 40 comptes clients. Direction artistique et production visuelle depuis 2018.</p>
+
+        <button class="cv-toggle" id="cvToggle" type="button" aria-expanded="false" aria-controls="cvPanel">
+          <span class="cv-toggle__label" data-i18n="cv.toggle">Parcours &amp; compétences</span><span class="cv-toggle__icon" aria-hidden="true">+</span>
+        </button>
+
+        <div class="cv-panel" id="cvPanel" inert>
+          <div class="cv-panel__inner">
+            <div class="cv-block">
+              <span class="cv-label" data-i18n="cv.exp">EXPÉRIENCE</span>
+              <ul class="cv-list">
+                <li><b>2025 —</b><span data-i18n="cv.e1">Fondateur &amp; Marketing Manager · iVISION Agency (40+ comptes clients)</span></li>
+                <li><b>2022 —</b><span data-i18n="cv.e2">Développeur freelance &amp; builder SaaS · applications web sur mesure</span></li>
+                <li><b data-i18n="cv.e3date">Juin 2024 —</b><span data-i18n="cv.e3">Art Director · MS Cherchell (club de football)</span></li>
+                <li><b>2022–24</b><span data-i18n="cv.e4">Graphiste · JIL-FM (radio nationale)</span></li>
+                <li><b>2022</b><span data-i18n="cv.e5">Media Manager · Club MSC</span></li>
+                <li><b>2018 —</b><span data-i18n="cv.e6">Graphiste, vidéaste &amp; monteur freelance</span></li>
+                <li><b data-i18n="cv.projectsLabel">PROJETS</b><span data-i18n="cv.projects">RAWDHA+ · Fidali · MOVESMART (Dubaï) · Influnzy</span></li>
+              </ul>
+            </div>
+            <div class="cv-block">
+              <span class="cv-label" data-i18n="cv.skills">COMPÉTENCES</span>
+              <p class="cv-line"><b data-i18n="cv.s1t">Dev</b> <span data-i18n="cv.s1">React · TypeScript · Next.js · Vite · Tailwind · Python · Supabase · PostgreSQL · REST APIs · GitHub · Vercel</span></p>
+              <p class="cv-line"><b data-i18n="cv.s2t">IA</b> <span data-i18n="cv.s2">AI agents · prompt engineering · fine-tuning · RAG · Claude Code · LLM APIs · Edge Functions · pg_cron · webhooks</span></p>
+              <p class="cv-line"><b data-i18n="cv.s3t">Growth</b> <span data-i18n="cv.s3">Meta Ads · GA4 · tunnels de conversion · Shopify · cash on delivery · Fidali</span></p>
+              <p class="cv-line"><b data-i18n="cv.s4t">Création</b> <span data-i18n="cv.s4">Direction artistique · identité visuelle · UI/UX · photo · vidéo · Photoshop · Illustrator · InDesign · Premiere Pro · After Effects · CapCut</span></p>
+            </div>
+            <div class="cv-block">
+              <span class="cv-label" data-i18n="cv.edu">FORMATION &amp; LANGUES</span>
+              <p class="cv-line" data-i18n="cv.edu1">Diplôme de technicien supérieur en informatique, gestion de bases de données — INSFP Bousmail, 2021</p>
+              <p class="cv-line" data-i18n="cv.edu2">Certificat de stage en design graphique &amp; montage vidéo — Ministère de l'Enseignement supérieur, 2022</p>
+              <p class="cv-line" data-i18n="cv.edu3">Claude 101 &amp; Claude Code in Action — Anthropic Education</p>
+              <p class="cv-line cv-line--lang" data-i18n="cv.lang">Arabe : natif · Français : courant · Anglais : professionnel</p>
+            </div>
+            <p class="cv-line cv-links"><b data-i18n="cv.linksLabel">PORTFOLIOS</b> <a data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer" data-i18n="cv.link1">Sites web ↗</a> <a data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer" data-i18n="cv.link2">Social &amp; vidéo ↗</a></p>
+            <a class="cv-download" data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span data-i18n="cv.download">Télécharger le CV (PDF, anglais)</span> <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <div class="about__sign"><span data-bind="name">Abdelmalek Labbaci</span><span data-bind="location">Alger, Algérie</span></div>
+      </div>
+      <div class="about__media" data-anim><img src="assets/img/abdelmalek-portrait.webp" alt="Abdelmalek Labbaci, portrait" loading="lazy"></div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <span class="tag" data-i18n="contact.tag">CONTACT</span>
+        <h2 class="contact__title" data-reveal data-i18n="contact.title">Parlons.</h2>
+        <a class="contact__mail" data-anim data-bind-href="email" href="mailto:abdelmaleklabbaci01@gmail.com"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span aria-hidden="true">↗</span></a>
+        <p class="contact__phone" data-anim><span data-i18n="contact.phone">Ou au</span> <a data-bind-href="phoneHref" href="tel:+213697660969"><span data-bind="phone">+213 697 660 969</span></a></p>
+        <div class="contact__bottom" data-anim>
+          <div class="socials" id="socials"></div>
+          <div class="contact__meta"><span data-bind="location">Alger, Algérie</span><span id="localTime"></span></div>
+          <a class="contact__top" href="#top"><span data-i18n="footer.top">Retour en haut</span> <span aria-hidden="true">↑</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner" data-anim>
+      <span>© <span data-bind="year">2026</span> <span data-bind="name">Abdelmalek Labbaci</span> — <span data-i18n="footer.note">Fondateur · iVISION Agency</span></span>
+      <span data-i18n="footer.tagline">Code · IA · Growth · Image</span>
+    </div>
+  </footer>
+
+  <!-- ================= WHATSAPP BUBBLE ================= -->
+  <a class="wa-bubble" href="https://wa.me/213697660969?text=Bonjour%20Abdelmalek%20!" target="_blank" rel="noopener noreferrer" aria-label="Discuter sur WhatsApp">
+    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+      <circle cx="32" cy="28.5" r="24" fill="#25D366"/>
+      <path fill="#25D366" stroke="#25D366" stroke-width="2.5" stroke-linejoin="round" d="M15.5 46.5 L6.5 58 L20 51.5 Z"/>
+      <g transform="translate(17 13.5) scale(1.32)" fill="#FFFFFF">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 11.91a16 16 0 0 0 6 6l3.27-1.27a2 2 0 0 1 2.11.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </g>
+    </svg>
+    <span class="wa-bubble__ping" aria-hidden="true"></span>
+    <span class="wa-bubble__label" data-i18n="wa.label">Discute avec moi</span>
+  </a>
+
+  <script src="assets/js/config.js?v=20261109c"></script>
+  <script src="assets/js/main.js?v=20261109c"></script>
+</body>
+</html>
