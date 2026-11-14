@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Abdelmalek Labbaci — fondateur technique, développeur SaaS, growth & IA à Alger.">
+  <meta name="description" content="Abdelmalek Labbaci — AI Product Engineer | Full-Stack & Backend AI Systems. Shipping production Voice/LLM products, OAuth 2.1 MCP servers, hybrid RAG/Cache pipelines & multi-tenant SaaS.">
   <meta name="theme-color" content="#EFEDE7">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Abdelmalek Labbaci — Portfolio">
-  <meta property="og:description" content="Fondateur technique, développeur SaaS, growth & IA à Alger. Fondateur d'iVISION Agency.">
+  <meta property="og:title" content="Abdelmalek Labbaci — AI Product Engineer | Full-Stack & Backend AI Systems">
+  <meta property="og:description" content="Production Voice & LLM systems, OAuth 2.1 MCP servers, hybrid RAG/Context-Cache pipelines (−74% token cost), and multi-tenant SaaS across 40+ B2B accounts.">
   <meta property="og:image" content="apercu.png">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Abdelmalek Labbaci — Portfolio</title>
+  <title>Abdelmalek Labbaci — AI Product Engineer | Full-Stack &amp; Backend AI Systems</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script>document.documentElement.classList.add('js')</script>
-  <link rel="stylesheet" href="assets/css/style.css?v=20261109d">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261114j">
 </head>
 <body>
 
@@ -24,40 +24,43 @@
   <!-- ================= HEADER ================= -->
   <header class="header" id="header">
     <div class="header__inner wrap">
-      <a class="brand" href="#top" aria-label="Retour en haut">
+      <a class="brand" href="#top" aria-label="Back to top">
         <strong class="brand__full" data-bind="name">Abdelmalek Labbaci</strong><strong class="brand__short" aria-hidden="true" style="display:none">Abdelmalek</strong>
-        <small data-bind="role">CEO &amp; Founder · iVISION · Sawtify · eFOLIO</small>
+        <small data-bind="role">AI Product Engineer · Full-Stack &amp; Backend AI Systems</small>
       </a>
-      <nav class="nav" aria-label="Navigation principale">
-        <a href="#index" data-i18n="nav.index">Index</a>
-        <a href="#work" data-i18n="nav.work">Travaux</a>
-        <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
-        <a href="#about" data-i18n="nav.about">À propos</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#work" data-i18n="nav.work">Flagship AI</a>
+        <a href="#mcp" data-i18n="nav.mcp">MCP &amp; OSS</a>
+        <a class="nav__arch" href="architecture.html" data-i18n="nav.arch">Architecture (ADRs)</a>
+        <a href="#portfolio" data-i18n="nav.portfolio">All Work (20)</a>
+        <a href="#about" data-i18n="nav.about">About</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
-        <a class="nav__cv" data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span data-i18n="nav.cv">CV</span> ↗</a>
+        <a class="nav__gh" data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a class="nav__cv" data-bind-href="cv" data-cv-download href="assets/abdelmalek_labbaci_resume_en.pdf" download><span data-i18n="nav.cv">CV</span> ↗</a>
       </nav>
       <div class="header__right">
-        <button class="lang" id="langToggle" type="button" aria-label="Switch language">EN</button>
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span class="menu-btn__label">MENU</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
+        <button class="lang" id="langToggle" type="button" aria-label="Switch language">FR</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false"><span class="menu-btn__label">MENU</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
       </div>
     </div>
   </header>
 
-  <!-- ================= MENU MOBILE ================= -->
+  <!-- ================= MOBILE MENU ================= -->
   <div class="menu" id="mobileMenu" aria-hidden="true">
-    <div class="menu__langrow" role="group" aria-label="Langue / Language">
-      <button class="menu__langopt is-active" type="button" data-set-lang="fr" aria-pressed="true">FR — Français</button>
-      <button class="menu__langopt" type="button" data-set-lang="en" aria-pressed="false">EN — English</button>
+    <div class="menu__langrow" role="group" aria-label="Language / Langue">
+      <button class="menu__langopt is-active" type="button" data-set-lang="en" aria-pressed="true">EN — English</button>
+      <button class="menu__langopt" type="button" data-set-lang="fr" aria-pressed="false">FR — Français</button>
     </div>
-    <nav aria-label="Navigation mobile">
-      <a href="#index"><span>01</span><span data-i18n="nav.index">Index</span></a>
-      <a href="#work"><span>02</span><span data-i18n="nav.work">Travaux</span></a>
-      <a href="#portfolio"><span>03</span><span data-i18n="nav.portfolio">Portfolio</span></a>
-      <a href="#about"><span>04</span><span data-i18n="nav.about">À propos</span></a>
+    <nav aria-label="Mobile navigation">
+      <a href="#work"><span>01</span><span data-i18n="nav.work">Flagship AI</span></a>
+      <a href="architecture.html"><span>02</span><span data-i18n="nav.arch">Architecture (ADRs)</span></a>
+      <a href="#portfolio"><span>03</span><span data-i18n="nav.portfolio">All Work (20)</span></a>
+      <a href="#about"><span>04</span><span data-i18n="nav.about">About</span></a>
       <a href="#contact"><span>05</span><span data-i18n="nav.contact">Contact</span></a>
-      <a data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span>06</span><span data-i18n="nav.cv">CV</span></a>
+      <a data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer"><span>06</span><span>GitHub (35 Repos) ↗</span></a>
+      <a data-bind-href="cv" data-cv-download href="assets/abdelmalek_labbaci_resume_en.pdf" download><span>07</span><span data-i18n="nav.cv">CV</span></a>
     </nav>
-    <div class="menu__foot"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span data-bind="location">Alger, Algérie</span></div>
+    <div class="menu__foot"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span data-bind="location">Global Remote · UTC+1</span></div>
   </div>
 
   <main id="top">
@@ -66,232 +69,275 @@
     <section class="hero" id="hero">
       <div class="hero__media"><img src="assets/img/abdelmalek-hero.webp" alt="Abdelmalek Labbaci" fetchpriority="high"></div>
       <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__atmosphere" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
       <div class="hero__topshade" aria-hidden="true"></div>
       <div class="hero__content wrap">
+        <div class="hero__kicker" data-anim>
+          <span class="hero__kicker-dot" aria-hidden="true"></span>
+          <span data-i18n="hero.kicker">AI PRODUCT ENGINEER · FULL-STACK &amp; BACKEND AI SYSTEMS · EN / FR / AR</span>
+        </div>
         <h1 class="hero__title" data-anim>
           <span data-bind="firstName">Abdelmalek</span>
           <em data-bind="lastName">Labbaci.</em>
         </h1>
+        <div class="hero__pills" data-anim>
+          <span class="hero__pill"><b>MCP</b> <span data-i18n="hero.pill1">Production MCP server</span></span>
+          <span class="hero__pill"><b>−74%</b> <span data-i18n="hero.pill2">LLM cost on a measured workload</span></span>
+          <span class="hero__pill"><b>35</b> <span data-i18n="hero.pill3">Public repositories</span></span>
+          <span class="hero__pill"><b>40+</b> <span data-i18n="hero.pill4">Client accounts</span></span>
+        </div>
         <div class="hero__foot" data-anim>
-          <p class="hero__sub" data-i18n="hero.sub">Développement · IA &amp; automatisation · Growth · Direction artistique</p>
-          <a class="hero__scroll" href="#index"><span data-i18n="hero.scroll">DÉFILER</span><span class="hero__scroll-line"></span><span aria-hidden="true">↓</span></a>
+          <div class="hero__foot-left">
+            <p class="hero__sub" data-i18n="hero.sub">Shipping 0→1 AI products, omnichannel LLM/Voice agents, MCP integrations &amp; multi-tenant SaaS — uniting backend systems reliability with product velocity.</p>
+            <div class="hero__ctas">
+              <a class="hero__cta hero__cta--primary" href="#work"><span data-i18n="hero.ctaWork">Explore AI Systems</span> <span aria-hidden="true">↓</span></a>
+              <a class="hero__cta" href="architecture.html"><span data-i18n="hero.ctaArch">Read Architecture &amp; ADRs</span> <span aria-hidden="true">↗</span></a>
+              <a class="hero__cta" data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer"><span>GitHub</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <a class="hero__scroll" href="#work"><span data-i18n="hero.scroll">SCROLL</span><span class="hero__scroll-line"></span><span aria-hidden="true">↓</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ================= INDEX DES 4 PÔLES ================= -->
-    <section class="index-section" id="index">
+    <!-- A continuous, decorative motion strip between the hero and the work. -->
+    <div class="motion-strip" aria-hidden="true">
+      <div class="motion-strip__track">
+        <div class="motion-strip__group"><span>AI PRODUCT ENGINEER</span><i>✳</i><span>BUILDING FROM 0 TO 1</span><i>✳</i><span>FULL-STACK SYSTEMS</span><i>✳</i><span>CREATIVE TECHNOLOGY</span><i>✳</i></div>
+        <div class="motion-strip__group"><span>AI PRODUCT ENGINEER</span><i>✳</i><span>BUILDING FROM 0 TO 1</span><i>✳</i><span>FULL-STACK SYSTEMS</span><i>✳</i><span>CREATIVE TECHNOLOGY</span><i>✳</i></div>
+      </div>
+    </div>
+
+    <!-- ================= FLAGSHIP SYSTEMS — MOBILE LIST ================= -->
+    <section class="work-m" id="work">
       <div class="wrap">
-        <div class="sec-head line" data-anim>
-          <span data-i18n="index.label">QUATRE MÉTIERS</span>
-          <span>01 — 04</span>
-        </div>
-        <ul class="index-list" id="indexList">
-          <li class="index-row" data-index="0"><a href="#work"><span class="n">01</span><span class="t" data-i18n="p1">Développement Web &amp; Logiciel</span><span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li class="index-row" data-index="1"><a href="#work"><span class="n">02</span><span class="t" data-i18n="p2">IA &amp; Automatisation</span><span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li class="index-row" data-index="2"><a href="#work"><span class="n">03</span><span class="t" data-i18n="p3">Marketing Digital, Growth &amp; E-commerce</span><span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li class="index-row" data-index="3"><a href="#work"><span class="n">04</span><span class="t" data-i18n="p4">Direction Artistique &amp; Multimédia</span><span class="arrow" aria-hidden="true">↗</span></a></li>
-        </ul>
-        <p class="index-note"><span class="note--hover" data-i18n="index.note">Survole un pôle pour l'aperçu · clique pour voir le projet</span><span class="note--touch" data-i18n="index.noteTouch">Touche un pôle pour voir le projet</span></p>
-      </div>
-      <div class="preview" id="preview" aria-hidden="true"><img id="previewImg" src="assets/img/real-movesmart.webp" alt=""></div>
-    </section>
-
-    <!-- ================= GALERIE PLEIN ÉCRAN ================= -->
-    <section class="stage" id="work">
-      <div class="stage__viewport">
-        <div class="stage__images">
-          <figure class="stage__img is-active" data-i="0">
-            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">movesmart-ecru.vercel.app</span></div>
-              <div class="shot__screen"><img src="assets/img/real-movesmart.webp" alt="Capture complète du site MoveSmart, immobilier à Dubaï" loading="eager"></div><span class="shot__tag">MoveSmart</span></div>
-          </figure>
-          <figure class="stage__img" data-i="1">
-            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio sites web</span></div>
-              <div class="shot__screen"><img src="assets/img/real-jawebflow.webp" alt="Capture complète du site JawebFlow, assistant de discussion pour entreprises" loading="eager"></div><span class="shot__tag">JawebFlow</span></div>
-          </figure>
-          <figure class="stage__img" data-i="2">
-            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">fidali.vercel.app</span></div>
-              <div class="shot__screen"><img src="assets/img/real-fidali.webp" alt="Capture complète du site Fidali, programme de fidélité digital" loading="eager"></div><span class="shot__tag">Fidali</span></div>
-          </figure>
-          <figure class="stage__img" data-i="3">
-            <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio social &amp; vidéo</span></div>
-              <div class="shot__screen"><img src="assets/img/real-msc.webp" alt="Deux affiches Match Day MS Cherchell, présentées en planche" loading="eager"></div><span class="shot__tag">MS Cherchell</span></div>
-          </figure>
-        </div>
-        <div class="stage__shade" aria-hidden="true"></div>
-        <div class="stage__top wrap">
-          <span data-i18n="work.label">PROJETS RÉELS · iVISION AGENCY</span>
-          <span>CAPTURES RÉELLES</span>
-        </div>
-        <div class="stage__captions">
-          <div class="cap is-active" data-i="0">
-            <span class="cap__meta">01 / <span data-i18n="cat1">DÉVELOPPEMENT &amp; SAAS</span></span>
-            <h2>MoveSmart</h2>
-            <p data-i18n="c1">Site vitrine immobilier pour Dubaï : présentation immersive, opportunités, journal et prise de contact.</p>
-            <a href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="cap" data-i="1">
-            <span class="cap__meta">02 / <span data-i18n="cat2">IA &amp; AUTOMATISATION</span></span>
-            <h2>JawebFlow</h2>
-            <p data-i18n="c2">Assistant de discussion pour entreprises : réponses en français et darija, démo et espace personnel.</p>
-            <a data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="cap" data-i="2">
-            <span class="cap__meta">03 / <span data-i18n="cat3">GROWTH &amp; E-COMMERCE</span></span>
-            <h2>Fidali</h2>
-            <p data-i18n="c3">Programme de fidélité digital : QR code intelligent, validation sécurisée et notifications en temps réel.</p>
-            <a href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="cap" data-i="3">
-            <span class="cap__meta">04 / <span data-i18n="cat4">DIRECTION ARTISTIQUE</span></span>
-            <h2>MS Cherchell</h2>
-            <p data-i18n="c4">Affiches match day et direction visuelle pour le club : compositing, lumière et typographie.</p>
-            <a data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="stage__rail">
-          <span class="rail__num" id="stageNum">01</span><span class="rail__total">/ 04</span>
-          <span class="rail__bar"><i id="railFill"></i></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= TRAVAUX — VERSION MOBILE ================= -->
-    <section class="work-m" id="workMobile">
-      <div class="wrap">
-        <div class="sec-head line" data-anim><span data-i18n="work.label">PROJETS RÉELS · iVISION AGENCY</span><span data-i18n="folio.meta">CAPTURES RÉELLES</span></div>
+        <div class="sec-head line" data-anim><span data-i18n="work.label">SELECTED WORK</span><span data-i18n="work.sublabel">PRODUCTS BUILT FROM THE GROUND UP</span></div><div class="work-heading"><h2 data-i18n="work.heading">Ideas into real products.</h2><p data-i18n="work.intro">A selection of products I’ve designed, built, and brought to life.</p></div>
         <div class="work-m__list">
           <article class="work-m__item line" data-anim>
-            <a class="work-m__shot" href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer">
-              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">movesmart-ecru.vercel.app</span></div>
-                <div class="shot__screen"><img src="assets/img/real-movesmart.webp" alt="Capture complète du site MoveSmart" loading="lazy"></div><span class="shot__tag">MoveSmart</span></div>
+            <a class="work-m__shot" href="https://sawtify.space" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">sawtify.space · /mcp</span></div>
+                <div class="shot__screen"><img src="assets/img/real-sawtify.webp" alt="Sawtify platform screenshot" loading="lazy"></div><span class="shot__tag">Sawtify</span></div>
             </a>
             <div class="work-m__text">
-              <span class="work-m__meta">01 / <span data-i18n="cat1">DÉVELOPPEMENT &amp; SAAS</span></span>
-              <h2>MoveSmart</h2>
-              <p data-i18n="c1">Site vitrine immobilier pour Dubaï : présentation immersive, opportunités, journal et prise de contact.</p>
-              <a class="work-m__link" href="https://movesmart-ecru.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+              <span class="work-m__meta">01 / <span data-i18n="cat1">VOICE AI · MCP SERVER · TELEPHONY</span></span>
+              <h2>Sawtify</h2>
+              <p data-i18n="c1">Dialectal Darija/FR/EN TTS platform, bidirectional Live Voice Agent, SHA-256 Developer API &amp; OAuth 2.1 MCP Connector — plus an Android Kotlin GSM PCM call relay.</p>
+              <div class="work-m__metrics">
+                <span class="work-m__metric" data-i18n="m1.a">303/303 engine tests</span>
+                <span class="work-m__metric" data-i18n="m1.b">OAuth 2.1 MCP Server</span>
+                <span class="work-m__metric" data-i18n="m1.c">30 voices · 24 kHz WAV</span>
+              </div>
+              <div class="work-m__actions">
+                <button class="work-m__btn work-m__btn--accent" type="button" data-open-sys="sawtify"><span data-i18n="work.sysBtn">Explore the system</span> ↗</button>
+                <a class="work-m__btn" href="https://sawtify.space" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Live App</span> ↗</a>
+                <a class="work-m__btn" href="https://github.com/Maleklabbaci/Sawtify" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              </div>
             </div>
           </article>
+
           <article class="work-m__item line" data-anim>
-            <a class="work-m__shot" href="https://ivision.agency/portfolio-sites-web-algerie.html" data-bind-href="portfolioSites" target="_blank" rel="noopener noreferrer">
-              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio sites web</span></div>
-                <div class="shot__screen"><img src="assets/img/real-jawebflow.webp" alt="Capture complète du site JawebFlow" loading="lazy"></div><span class="shot__tag">JawebFlow</span></div>
+            <a class="work-m__shot" href="https://jawebflow.pages.dev" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">jawebflow.pages.dev</span></div>
+                <div class="shot__screen"><img src="assets/img/real-jawebflow.webp" alt="JawebFlow platform screenshot" loading="lazy"></div><span class="shot__tag">JawebFlow</span></div>
             </a>
             <div class="work-m__text">
-              <span class="work-m__meta">02 / <span data-i18n="cat2">IA &amp; AUTOMATISATION</span></span>
+              <span class="work-m__meta">02 / <span data-i18n="cat2">OMNICHANNEL AGENTS · HYBRID RAG &amp; CACHE</span></span>
               <h2>JawebFlow</h2>
-              <p data-i18n="c2">Assistant de discussion pour entreprises : réponses en français et darija, démo et espace personnel.</p>
-              <a class="work-m__link" href="https://ivision.agency/portfolio-sites-web-algerie.html" data-bind-href="portfolioSites" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+              <p data-i18n="c2">Multi-tenant B2B AI chat &amp; voice widget + Instagram/Messenger webhook automation (FR, Arabic &amp; Arabizi) with bounded RAG, 10-min Context Caching &amp; lead capture.</p>
+              <div class="work-m__metrics">
+                <span class="work-m__metric" data-i18n="m2.a">−74% catalog token cost</span>
+                <span class="work-m__metric" data-i18n="m2.b">−59% voice prompt size</span>
+                <span class="work-m__metric" data-i18n="m2.c">Knowledge-base retrieval guardrail</span>
+              </div>
+              <div class="work-m__actions">
+                <button class="work-m__btn work-m__btn--accent" type="button" data-open-sys="jawebflow"><span data-i18n="work.sysBtn">Explore the system</span> ↗</button>
+                <a class="work-m__btn" href="https://jawebflow.pages.dev" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Live App</span> ↗</a>
+                <a class="work-m__btn" href="https://github.com/Maleklabbaci/Jawebflow" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              </div>
             </div>
           </article>
+
           <article class="work-m__item line" data-anim>
             <a class="work-m__shot" href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer">
               <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">fidali.vercel.app</span></div>
-                <div class="shot__screen"><img src="assets/img/real-fidali.webp" alt="Capture complète du site Fidali" loading="lazy"></div><span class="shot__tag">Fidali</span></div>
+                <div class="shot__screen"><img src="assets/img/real-fidali.webp" alt="Fidali platform screenshot" loading="lazy"></div><span class="shot__tag">Fidali</span></div>
             </a>
             <div class="work-m__text">
-              <span class="work-m__meta">03 / <span data-i18n="cat3">GROWTH &amp; E-COMMERCE</span></span>
+              <span class="work-m__meta">03 / <span data-i18n="cat3">MULTI-TENANT SAAS · REALTIME &amp; SHOPIFY</span></span>
               <h2>Fidali</h2>
-              <p data-i18n="c3">Programme de fidélité digital : QR code intelligent, validation sécurisée et notifications en temps réel.</p>
-              <a class="work-m__link" href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+              <p data-i18n="c3">Next.js 14 &amp; Supabase B2B2C digital loyalty SaaS: anti-fraud QR validation, bidirectional VAPID Web Push notifications, Super-Admin analytics &amp; Shopify OAuth sync.</p>
+              <div class="work-m__metrics">
+                <span class="work-m__metric" data-i18n="m3.a">Next.js 14 · 181 TS modules</span>
+                <span class="work-m__metric" data-i18n="m3.b">VAPID Realtime Push</span>
+                <span class="work-m__metric" data-i18n="m3.c">Shopify OAuth App</span>
+              </div>
+              <div class="work-m__actions">
+                <button class="work-m__btn work-m__btn--accent" type="button" data-open-sys="fidali"><span data-i18n="work.sysBtn">Explore the system</span> ↗</button>
+                <a class="work-m__btn" href="https://fidali.vercel.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Live App</span> ↗</a>
+                <a class="work-m__btn" href="https://github.com/Maleklabbaci/fidali" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              </div>
             </div>
           </article>
+
           <article class="work-m__item line" data-anim>
-            <a class="work-m__shot" href="https://ivision.agency/portfolio-social-media-algerie.html" data-bind-href="portfolioSocial" target="_blank" rel="noopener noreferrer">
-              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivision.agency · portfolio social & vidéo</span></div>
-                <div class="shot__screen"><img src="assets/img/real-msc.webp" alt="Deux affiches Match Day MS Cherchell" loading="lazy"></div><span class="shot__tag">MS Cherchell</span></div>
+            <a class="work-m__shot" href="https://www.ivisionads.online/" target="_blank" rel="noopener noreferrer">
+              <div class="shot"><div class="shot__bar"><span class="shot__dots"><i></i><i></i><i></i></span><span class="shot__url">ivisionads.online · ivision-plat</span></div>
+                <div class="shot__screen"><img src="assets/img/real-ivisionad.webp" alt="iVISION AI & B2B Ops screenshot" loading="lazy"></div><span class="shot__tag">iVISION AI Ops</span></div>
             </a>
             <div class="work-m__text">
-              <span class="work-m__meta">04 / <span data-i18n="cat4">DIRECTION ARTISTIQUE</span></span>
-              <h2>MS Cherchell</h2>
-              <p data-i18n="c4">Affiches match day et direction visuelle pour le club : compositing, lumière et typographie.</p>
-              <a class="work-m__link" href="https://ivision.agency/portfolio-social-media-algerie.html" data-bind-href="portfolioSocial" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Voir le projet</span> <span aria-hidden="true">↗</span></a>
+              <span class="work-m__meta">04 / <span data-i18n="cat4">B2B AI INTEGRATION · SOLUTIONS &amp; GROWTH</span></span>
+              <h2>iVISION AI Ops</h2>
+              <p data-i18n="c4">Custom B2B operations OS (ivision-plat), AI strategy engine, automated lead qualification webhooks &amp; conversion pipelines powering 40+ active client accounts.</p>
+              <div class="work-m__metrics">
+                <span class="work-m__metric" data-i18n="m4.a">40+ active B2B accounts</span>
+                <span class="work-m__metric" data-i18n="m4.b">Internal AI ERP &amp; CRM</span>
+                <span class="work-m__metric" data-i18n="m4.c">Automated PDF &amp; Lead Sync</span>
+              </div>
+              <div class="work-m__actions">
+                <button class="work-m__btn work-m__btn--accent" type="button" data-open-sys="ivision"><span data-i18n="work.sysBtn">Explore the system</span> ↗</button>
+                <a class="work-m__btn" href="https://www.ivisionads.online/" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Live App</span> ↗</a>
+                <a class="work-m__btn" href="https://github.com/Maleklabbaci/ivision-plat" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ================= PORTFOLIO IVISION (captures réelles) ================= -->
+    <!-- ================= FEATURED MCP SERVER & OPEN-SOURCE ================= -->
+    <section class="mcp-sec" id="mcp">
+      <div class="wrap">
+        <div class="sec-head line" data-anim>
+          <span data-i18n="mcp.label">MODEL CONTEXT PROTOCOL (MCP) &amp; PUBLIC REPOSITORIES</span>
+          <span data-i18n="mcp.meta">PRODUCTION AGENT INFRASTRUCTURE</span>
+        </div>
+        <div class="mcp-grid">
+          <div class="mcp-pitch" data-anim>
+            <div>
+              <h2 class="mcp-title"><span data-i18n="mcp.t1">Production MCP Server</span> <em data-i18n="mcp.t2">&amp; 35 Public Repos.</em></h2>
+              <p class="mcp-desc" data-i18n="mcp.desc" style="margin-top:18px">Built on @modelcontextprotocol/sdk with full OAuth 2.1 + PKCE dynamic client registration and SHA-256 API keys. Any AI client (Claude Desktop, ChatGPT Developer Mode, or Claude Code CLI) can list voices, synthesize dialectal speech, inspect wallet credits, and query generation history natively.</p>
+            </div>
+            <div class="mcp-badges">
+              <span class="mcp-badge">@modelcontextprotocol/sdk v1.32</span>
+              <span class="mcp-badge">OAuth 2.1 + PKCE</span>
+              <span class="mcp-badge">/.well-known/oauth-authorization-server</span>
+              <span class="mcp-badge">SHA-256 Bearer Keys</span>
+              <span class="mcp-badge">Cloudflare → Render Edge Proxy</span>
+            </div>
+            <div class="mcp-actions">
+              <a class="folio__btn" href="https://github.com/Maleklabbaci/Sawtify" target="_blank" rel="noopener noreferrer"><span data-i18n="mcp.btnRepo">Inspect MCP Code on GitHub</span> <span aria-hidden="true">↗</span></a>
+              <a class="folio__btn folio__btn--ghost" href="architecture.html"><span data-i18n="mcp.btnAdr">Read All 5 System ADRs</span> <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="mcp-card" data-anim>
+            <div class="mcp-card__top">
+              <span>SAWTIFY MCP CONNECTOR</span>
+              <span class="mcp-card__live" data-i18n="mcp.live">OAUTH 2.1 + BEARER READY</span>
+            </div>
+            <div class="mcp-endpoint">
+              <code id="mcpUrlText">https://sawtify.space/mcp</code>
+              <button class="mcp-copy" id="copyMcpBtn" type="button" data-i18n="mcp.copy">Copy URL</button>
+            </div>
+            <div class="mcp-tools">
+              <div class="mcp-tool"><b>lister_voix</b><span data-i18n="mcp.tool1">List 30 voices &amp; dialect tags</span></div>
+              <div class="mcp-tool"><b>generer_voix</b><span data-i18n="mcp.tool2">Synthesize 24 kHz WAV speech</span></div>
+              <div class="mcp-tool"><b>voir_credits</b><span data-i18n="mcp.tool3">Check real-time wallet balance</span></div>
+              <div class="mcp-tool"><b>historique_generations</b><span data-i18n="mcp.tool4">Retrieve signed 7-day audio URLs</span></div>
+            </div>
+            <div class="mcp-foot" data-i18n="mcp.foot">Compatible with Claude Connectors, ChatGPT Developer Mode &amp; Claude Code CLI (Authorization: Bearer swt_beta_...).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ALL 20 SHIPPED SYSTEMS, SAAS & STUDIO WORKS ================= -->
     <section class="folio" id="portfolio">
       <div class="wrap">
         <div class="sec-head line" data-anim>
-          <span data-i18n="folio.label">PORTFOLIO — iVISION AGENCY</span>
-          <span data-i18n="folio.meta">CAPTURES RÉELLES</span>
+          <span data-i18n="folio.label">COMPLETE ENGINEERING &amp; PRODUCT CATALOG</span>
+          <span data-i18n="folio.meta">AI AGENTS · SAAS PLATFORMS · WEB &amp; BRAND</span>
         </div>
         <div class="folio__head line" data-anim>
-          <h2 class="folio__title"><span data-i18n="folio.t1">Des projets,</span> <em data-i18n="folio.t2">en vrai.</em></h2>
-          <p class="folio__intro" data-i18n="folio.intro">Une sélection de sites et de créations sortis du studio iVISION. Clique sur une capture pour ouvrir le projet.</p>
+          <h2 class="folio__title"><span data-i18n="folio.t1">Every shipped system,</span> <em data-i18n="folio.t2">in the wild.</em></h2>
+          <p class="folio__intro" data-i18n="folio.intro">From multi-tenant AI agents and SaaS platforms to high-conversion storefronts and visual systems. Filter by discipline or inspect the source code directly.</p>
         </div>
+
+        <div class="folio__filters" id="folioFilters" role="group" aria-label="Filter projects">
+          <button class="filter-btn is-active" type="button" data-filter="all"><span data-i18n="filter.all">All Work</span> <span class="filter-count">(20)</span></button>
+          <button class="filter-btn" type="button" data-filter="ai"><span data-i18n="filter.ai">AI &amp; Agents</span> <span class="filter-count">(5)</span></button>
+          <button class="filter-btn" type="button" data-filter="saas"><span data-i18n="filter.saas">SaaS &amp; Platforms</span> <span class="filter-count">(7)</span></button>
+          <button class="filter-btn" type="button" data-filter="web"><span data-i18n="filter.web">Web, Growth &amp; Brand</span> <span class="filter-count">(8)</span></button>
+        </div>
+
         <div class="folio__grid" id="captureGrid"></div>
+
         <div class="folio__actions" data-anim>
-          <a class="folio__btn" data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btn1">Tout le portfolio sites web</span><span aria-hidden="true">↗</span></a>
-          <a class="folio__btn folio__btn--ghost" data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btn2">Portfolio social &amp; vidéo</span><span aria-hidden="true">↗</span></a>
+          <a class="folio__btn" href="architecture.html"><span data-i18n="folio.btnArch">Read Engineering ADRs (/architecture)</span><span aria-hidden="true">↗</span></a>
+          <a class="folio__btn folio__btn--ghost" data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btnGh">All 35 Repositories on GitHub</span><span aria-hidden="true">↗</span></a>
+          <a class="folio__btn folio__btn--ghost" data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer"><span data-i18n="folio.btn1">iVISION Web Archive</span><span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ================= À PROPOS + PARCOURS ================= -->
+    <!-- ================= ABOUT & ENGINEERING RÉSUMÉ ================= -->
     <section class="about" id="about">
       <div class="about__col" data-reveal>
-        <span class="tag" data-i18n="about.tag">À PROPOS</span>
-        <h2 class="about__title"><span data-i18n="about.l1">Un profil,</span><em data-i18n="about.l2">quatre métiers.</em></h2>
-        <p class="about__text" data-i18n="about.text">Fondateur d'iVISION Agency : développement SaaS, automatisation IA et croissance de plus de 40 comptes clients. Direction artistique et production visuelle depuis 2018.</p>
+        <span class="tag" data-i18n="about.tag">ABOUT &amp; TRACK RECORD</span>
+        <h2 class="about__title"><span data-i18n="about.l1">Systems thinker,</span><em data-i18n="about.l2">0→1 builder.</em></h2>
+        <p class="about__text" data-i18n="about.text">AI Product &amp; Full-Stack Engineer and Technical Founder (iVISION, Sawtify, JawebFlow, Fidali). I architect end-to-end LLM &amp; Voice systems—from PostgreSQL/Supabase schemas, Edge webhooks, and MCP servers to high-craft React/Next.js interfaces and conversion pipelines deployed across 40+ B2B client accounts.</p>
 
         <button class="cv-toggle" id="cvToggle" type="button" aria-expanded="false" aria-controls="cvPanel">
-          <span class="cv-toggle__label" data-i18n="cv.toggle">Parcours &amp; compétences</span><span class="cv-toggle__icon" aria-hidden="true">+</span>
+          <span class="cv-toggle__label" data-i18n="cv.toggle">Engineering stack, experience &amp; education</span><span class="cv-toggle__icon" aria-hidden="true">+</span>
         </button>
 
         <div class="cv-panel" id="cvPanel" inert>
           <div class="cv-panel__inner">
             <div class="cv-block">
-              <span class="cv-label" data-i18n="cv.exp">EXPÉRIENCE</span>
+              <span class="cv-label" data-i18n="cv.skills">ENGINEERING STACK</span>
+              <p class="cv-line"><b data-i18n="cv.s2t">AI Systems</b> <span data-i18n="cv.s2">LLM APIs (Claude, Gemini) · Model Context Protocol (MCP, OAuth 2.1) · Bounded RAG · Explicit Context Caching · Live Voice &amp; TTS Pipelines · Tool Calling · Anti-Hallucination Guardrails · Automated Evals</span></p>
+              <p class="cv-line"><b data-i18n="cv.s1t">Full-Stack</b> <span data-i18n="cv.s1">TypeScript · Next.js 14 (App Router) · React 19 · Node.js / Express · Cloudflare Pages Functions · Python · Supabase · PostgreSQL (RLS) · REST &amp; Webhooks · VAPID Web Push · Vitest</span></p>
+              <p class="cv-line"><b data-i18n="cv.s3t">Integrations</b> <span data-i18n="cv.s3">Instagram / Messenger Graph Webhooks · Shopify OAuth · Stripe &amp; CIB/Edahabia Billing · Meta / Google / TikTok Ads APIs · GA4 · Conversion Funnels</span></p>
+              <p class="cv-line"><b data-i18n="cv.s4t">Product UX</b> <span data-i18n="cv.s4">Design Systems · Streaming &amp; Voice UI/UX · Art Direction · Adobe Creative Suite · Motion &amp; Video Production</span></p>
+            </div>
+            <div class="cv-block">
+              <span class="cv-label" data-i18n="cv.exp">EXPERIENCE</span>
               <ul class="cv-list">
-                <li><b>2025 —</b><span data-i18n="cv.e1">Fondateur &amp; Marketing Manager · iVISION Agency (40+ comptes clients)</span></li>
-                <li><b>2022 —</b><span data-i18n="cv.e2">Développeur freelance &amp; builder SaaS · applications web sur mesure</span></li>
-                <li><b data-i18n="cv.e3date">Juin 2024 —</b><span data-i18n="cv.e3">Art Director · MS Cherchell (club de football)</span></li>
-                <li><b>2022–24</b><span data-i18n="cv.e4">Graphiste · JIL-FM (radio nationale)</span></li>
-                <li><b>2022</b><span data-i18n="cv.e5">Media Manager · Club MSC</span></li>
-                <li><b>2018 —</b><span data-i18n="cv.e6">Graphiste, vidéaste &amp; monteur freelance</span></li>
-                <li><b data-i18n="cv.projectsLabel">PROJETS</b><span data-i18n="cv.projects">RAWDHA+ · Fidali · MOVESMART (Dubaï) · Influnzy</span></li>
+                <li><b>2025 —</b><span data-i18n="cv.e1">Technical Founder &amp; AI Lead · iVISION Agency &amp; SaaS Studio (40+ B2B client accounts, Sawtify, JawebFlow)</span></li>
+                <li><b>2024 —</b><span data-i18n="cv.e2">Full-Stack SaaS &amp; AI Product Engineer · 0→1 multi-tenant web platforms (Fidali, RAWDHA+, DIMA-GO, Aura Design)</span></li>
+                <li><b>2020–2022</b><span data-i18n="cv.e3">Art Director · MS Cherchell</span></li>
+                <li><b>2019–2020</b><span data-i18n="cv.e4">Visual Designer · JIL-FM (National Radio)</span></li>
+                <li><b>2018 —</b><span data-i18n="cv.e6">Product Designer, Art Director &amp; Multimedia Producer</span></li>
               </ul>
             </div>
             <div class="cv-block">
-              <span class="cv-label" data-i18n="cv.skills">COMPÉTENCES</span>
-              <p class="cv-line"><b data-i18n="cv.s1t">Dev</b> <span data-i18n="cv.s1">React · TypeScript · Next.js · Vite · Tailwind · Python · Supabase · PostgreSQL · REST APIs · GitHub · Vercel</span></p>
-              <p class="cv-line"><b data-i18n="cv.s2t">IA</b> <span data-i18n="cv.s2">AI agents · prompt engineering · fine-tuning · RAG · Claude Code · LLM APIs · Edge Functions · pg_cron · webhooks</span></p>
-              <p class="cv-line"><b data-i18n="cv.s3t">Growth</b> <span data-i18n="cv.s3">Meta Ads · GA4 · tunnels de conversion · Shopify · cash on delivery · Fidali</span></p>
-              <p class="cv-line"><b data-i18n="cv.s4t">Création</b> <span data-i18n="cv.s4">Direction artistique · identité visuelle · UI/UX · photo · vidéo · Photoshop · Illustrator · InDesign · Premiere Pro · After Effects · CapCut</span></p>
-            </div>
-            <div class="cv-block">
-              <span class="cv-label" data-i18n="cv.edu">FORMATION &amp; LANGUES</span>
-              <p class="cv-line" data-i18n="cv.edu1">Diplôme de technicien supérieur en informatique, gestion de bases de données — INSFP Bousmail, 2021</p>
-              <p class="cv-line" data-i18n="cv.edu2">Certificat de stage en design graphique &amp; montage vidéo — Ministère de l'Enseignement supérieur, 2022</p>
+              <span class="cv-label" data-i18n="cv.edu">EDUCATION, CERTIFICATIONS &amp; LANGUAGES</span>
               <p class="cv-line" data-i18n="cv.edu3">Claude 101 &amp; Claude Code in Action — Anthropic Education</p>
-              <p class="cv-line cv-line--lang" data-i18n="cv.lang">Arabe : natif · Français : courant · Anglais : professionnel</p>
+              <p class="cv-line" data-i18n="cv.edu1">Higher Technician Diploma in Computer Science, Database Management — INSFP Bousmail, 2021</p>
+              <p class="cv-line" data-i18n="cv.edu2">Certificate in Graphic Design &amp; Video Production — Ministry of Higher Education, 2022</p>
+              <p class="cv-line cv-line--lang" data-i18n="cv.lang">English: Professional · Français: Fluent · Arabic / Darija: Native</p>
             </div>
-            <p class="cv-line cv-links"><b data-i18n="cv.linksLabel">PORTFOLIOS</b> <a data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer" data-i18n="cv.link1">Sites web ↗</a> <a data-bind-href="portfolioSocial" href="https://ivision.agency/portfolio-social-media-algerie.html" target="_blank" rel="noopener noreferrer" data-i18n="cv.link2">Social &amp; vidéo ↗</a></p>
-            <a class="cv-download" data-bind-href="cv" data-cv-download href="assets/RESUMEanglais.pdf" download><span data-i18n="cv.download">Télécharger le CV (PDF, anglais)</span> <span aria-hidden="true">↗</span></a>
+            <p class="cv-line cv-links"><b data-i18n="cv.linksLabel">LINKS</b> <a href="architecture.html">Architecture &amp; ADRs ↗</a> <a data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer">GitHub ↗</a> <a data-bind-href="portfolioSites" href="https://ivision.agency/portfolio-sites-web-algerie.html" target="_blank" rel="noopener noreferrer" data-i18n="cv.link1">Web Archive ↗</a></p>
+            <a class="cv-download" data-bind-href="cv" data-cv-download href="assets/abdelmalek_labbaci_resume_en.pdf" download><span data-i18n="cv.download">Download Full Résumé (PDF, English)</span> <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
-        <div class="about__sign"><span data-bind="name">Abdelmalek Labbaci</span><span data-bind="location">Alger, Algérie</span></div>
+        <div class="about__sign"><span data-bind="name">Abdelmalek Labbaci</span><span data-bind="location">Global Remote · UTC+1</span></div>
       </div>
-      <div class="about__media" data-anim><img src="assets/img/abdelmalek-portrait.webp" alt="Abdelmalek Labbaci, portrait" loading="lazy"></div>
+      <div class="about__media" data-anim><img src="assets/img/abdelmalek-portrait.webp" alt="Abdelmalek Labbaci portrait" loading="lazy"></div>
     </section>
 
     <!-- ================= CONTACT ================= -->
     <section class="contact" id="contact">
       <div class="wrap">
-        <span class="tag" data-i18n="contact.tag">CONTACT</span>
-        <h2 class="contact__title" data-reveal data-i18n="contact.title">Parlons.</h2>
+        <span class="tag" data-i18n="contact.tag">GLOBAL OPPORTUNITIES · AI PRODUCT, FOUNDING &amp; INTEGRATION ROLES</span>
+        <h2 class="contact__title" data-reveal data-i18n="contact.title">Let’s build.</h2>
         <a class="contact__mail" data-anim data-bind-href="email" href="mailto:abdelmaleklabbaci01@gmail.com"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span aria-hidden="true">↗</span></a>
-        <p class="contact__phone" data-anim><span data-i18n="contact.phone">Ou au</span> <a data-bind-href="phoneHref" href="tel:+213697660969"><span data-bind="phone">+213 697 660 969</span></a></p>
+        <p class="contact__phone" data-anim><span data-i18n="contact.phone">Direct / WhatsApp:</span> <a data-bind-href="phoneHref" href="tel:+213697660969"><span data-bind="phone">+213 697 660 969</span></a> · <a href="architecture.html" data-i18n="contact.archLink">Inspect System Architecture &amp; ADRs ↗</a></p>
         <div class="contact__bottom" data-anim>
           <div class="socials" id="socials"></div>
-          <div class="contact__meta"><span data-bind="location">Alger, Algérie</span><span id="localTime"></span></div>
-          <a class="contact__top" href="#top"><span data-i18n="footer.top">Retour en haut</span> <span aria-hidden="true">↑</span></a>
+          <div class="contact__meta"><span data-bind="location">Global Remote · UTC+1</span><span id="localTime"></span></div>
+          <a class="contact__top" href="#top"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
         </div>
       </div>
     </section>
@@ -299,13 +345,48 @@
 
   <footer class="footer">
     <div class="wrap footer__inner" data-anim>
-      <span>© <span data-bind="year">2026</span> <span data-bind="name">Abdelmalek Labbaci</span> — <span data-i18n="footer.note">Fondateur · iVISION Agency</span></span>
-      <span data-i18n="footer.tagline">Code · IA · Growth · Image</span>
+      <span>© <span data-bind="year">2026</span> <span data-bind="name">Abdelmalek Labbaci</span> — <span data-i18n="footer.note">AI Product Engineer · Full-Stack &amp; Backend AI Systems</span></span>
+      <span data-i18n="footer.tagline">LLM Systems · MCP · Multi-Tenant SaaS · Product Velocity</span>
     </div>
   </footer>
 
-  <!-- ================= WHATSAPP BUBBLE ================= -->
-  <a class="wa-bubble" href="https://wa.me/213697660969?text=Bonjour%20Abdelmalek%20!" target="_blank" rel="noopener noreferrer" aria-label="Discuter sur WhatsApp">
+  <!-- ================= SYSTEM ARCHITECTURE & 90s WALKTHROUGH MODAL ================= -->
+  <div class="sys-modal" id="sysModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sysModalTitle">
+    <div class="sys-modal__dialog">
+      <div class="sys-modal__head">
+        <div>
+          <span class="sys-modal__kicker" data-i18n="modal.kicker">SYSTEM ARCHITECTURE · TRADE-OFFS &amp; WALKTHROUGH</span>
+          <h2 class="sys-modal__title" id="sysModalTitle">Sawtify</h2>
+        </div>
+        <button class="sys-modal__close" id="sysModalClose" type="button" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="sys-modal__section">
+        <span class="sys-modal__label" data-i18n="modal.flowLabel">PRODUCTION REQUEST PIPELINE</span>
+        <div class="sys-flow" id="sysModalFlow"></div>
+        <div class="sys-metrics" id="sysModalMetrics"></div>
+      </div>
+
+      <div class="sys-modal__section">
+        <span class="sys-modal__label" data-i18n="modal.tradeoffLabel">KEY ENGINEERING DECISION &amp; TRADE-OFF (ADR)</span>
+        <div class="sys-tradeoff" id="sysModalTradeoff"></div>
+      </div>
+
+      <div class="sys-modal__section">
+        <span class="sys-modal__label" data-i18n="modal.loomLabel">SYSTEM WALKTHROUGH</span>
+        <div class="sys-loom" id="sysModalLoom"></div>
+      </div>
+
+      <div class="sys-modal__foot">
+        <a class="folio__btn" id="sysModalAdrLink" href="architecture.html"><span data-i18n="modal.fullAdr">Read Full ADR &amp; Benchmarks</span> ↗</a>
+        <a class="folio__btn folio__btn--ghost" id="sysModalLiveLink" href="#" target="_blank" rel="noopener noreferrer"><span data-i18n="work.more">Live App</span> ↗</a>
+        <a class="folio__btn folio__btn--ghost" id="sysModalRepoLink" href="#" target="_blank" rel="noopener noreferrer"><span>GitHub Source</span> ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DIRECT WHATSAPP / QUICK INTRO ================= -->
+  <a class="wa-bubble" href="https://wa.me/213697660969?text=Hi%20Abdelmalek%2C%20I%20saw%20your%20AI%20Engineering%20portfolio!" target="_blank" rel="noopener noreferrer" aria-label="Direct chat on WhatsApp">
     <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
       <circle cx="32" cy="32" r="27" fill="#25D366"/>
       <g transform="translate(13.2 13.2) scale(1.56)" fill="#FFFFFF">
@@ -313,10 +394,10 @@
       </g>
     </svg>
     <span class="wa-bubble__ping" aria-hidden="true"></span>
-    <span class="wa-bubble__label" data-i18n="wa.label">Discute avec moi</span>
+    <span class="wa-bubble__label" data-i18n="wa.label">Direct message</span>
   </a>
 
-  <script src="assets/js/config.js?v=20261109d"></script>
-  <script src="assets/js/main.js?v=20261109d"></script>
+  <script src="assets/js/config.js?v=20261114b"></script>
+  <script src="assets/js/main.js?v=20261114j"></script>
 </body>
 </html>

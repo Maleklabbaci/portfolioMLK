@@ -1,426 +1,89 @@
-/* ============================================================
-   PORTFOLIO v2 — contenu réel issu de RESUMEanglais.pdf
-   Vanilla JS, aucune dépendance.
-   ============================================================ */
 (() => {
   'use strict';
-
   const SITE = window.SITE || {};
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
   const root = document.documentElement;
   root.classList.add('js');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = window.matchMedia('(pointer:fine)').matches;
-
-  /* ---------------------------------------------------------
-     1. Textes FR / EN (faits réels du CV uniquement)
-     --------------------------------------------------------- */
-  const I18N = {
-    fr: {
-      'nav.index':'Index','nav.work':'Travaux','nav.portfolio':'Portfolio','nav.about':'À propos','nav.contact':'Contact','nav.cv':'CV',
-      'hero.sub':'Développement · IA & automatisation · Growth · Direction artistique',
-      'hero.scroll':'DÉFILER',
-      'index.label':'QUATRE MÉTIERS','index.note':"Survole un pôle pour l'aperçu · clique pour voir le projet",'index.noteTouch':'Touche un pôle pour voir le projet',
-      'p1':'Développement Web & Logiciel','p2':'IA & Automatisation','p3':'Marketing Digital, Growth & E-commerce','p4':'Direction Artistique & Multimédia',
-      'work.label':'PROJETS RÉELS · iVISION AGENCY','work.more':'Voir le projet',
-      'cat1':'DÉVELOPPEMENT & SAAS','cat2':'IA & AUTOMATISATION','cat3':'GROWTH & E-COMMERCE','cat4':'DIRECTION ARTISTIQUE',
-      'c1':'Site vitrine immobilier pour Dubaï : présentation immersive, opportunités, journal et prise de contact.',
-      'c2':'Assistant de discussion pour entreprises : réponses en français et darija, démo et espace personnel.',
-      'c3':'Programme de fidélité digital : QR code intelligent, validation sécurisée et notifications en temps réel.',
-      'c4':'Affiches match day et direction visuelle pour le club : compositing, lumière et typographie.',
-      'about.tag':'À PROPOS','about.l1':'Un profil,','about.l2':'quatre métiers.',
-      'about.text':"CEO & Founder d'iVISION Agency — également CEO de Sawtify et eFOLIO. Développement SaaS, automatisation IA et croissance de plus de 40 comptes clients. Direction artistique et production visuelle depuis 2018.",
-      'cv.toggle':'Parcours & compétences','cv.hide':'Masquer le parcours','cv.exp':'EXPÉRIENCE',
-      'cv.e1':'Fondateur & Marketing Manager · iVISION Agency (40+ comptes clients)',
-      'cv.e2':'Développeur freelance & builder SaaS · applications web sur mesure',
-      'cv.e3date':'Juin 2024 —','cv.e3':'Art Director · MS Cherchell (club de football)',
-      'cv.e4':'Graphiste · JIL-FM (radio nationale)',
-      'cv.e5':'Media Manager · Club MSC',
-      'cv.e6':'Graphiste, vidéaste & monteur freelance',
-      'cv.projectsLabel':'PROJETS','cv.projects':'RAWDHA+ · Fidali · MOVESMART (Dubaï) · Influnzy',
-      'cv.skills':'COMPÉTENCES',
-      'cv.s1t':'Dev','cv.s1':'React · TypeScript · Next.js · Vite · Tailwind · Python · Supabase · PostgreSQL · REST APIs · GitHub · Vercel',
-      'cv.s2t':'IA','cv.s2':'AI agents · prompt engineering · fine-tuning · RAG · Claude Code · LLM APIs · Edge Functions · pg_cron · webhooks',
-      'cv.s3t':'Growth','cv.s3':'Meta Ads · GA4 · tunnels de conversion · Shopify · cash on delivery · Fidali',
-      'cv.s4t':'Création','cv.s4':'Direction artistique · identité visuelle · UI/UX · photo · vidéo · Photoshop · Illustrator · InDesign · Premiere Pro · After Effects · CapCut · Sony Vegas',
-      'cv.edu':'FORMATION & LANGUES',
-      'cv.edu1':'Diplôme de technicien supérieur en informatique, gestion de bases de données — INSFP Bousmail, 2021',
-      'cv.edu2':"Certificat de stage en design graphique & montage vidéo — Ministère de l'Enseignement supérieur, 2022",
-      'cv.edu3':'Claude 101 & Claude Code in Action — Anthropic Education',
-      'cv.lang':'Arabe : natif · Français : courant · Anglais : professionnel',
-      'cv.linksLabel':'PORTFOLIOS','cv.link1':'Sites web ↗','cv.link2':'Social & vidéo ↗',
-      'folio.label':'PORTFOLIO — iVISION AGENCY','folio.meta':'CAPTURES RÉELLES',
-      'folio.t1':'Des projets,','folio.t2':'en vrai.',
-      'folio.intro':'Une sélection de sites et de créations sortis du studio iVISION. Clique sur une capture pour ouvrir le projet.',
-      'folio.btn1':'Tout le portfolio sites web','folio.btn2':'Portfolio social & vidéo','folio.visit':'Voir le projet ↗',
-      'cv.download':'Télécharger le CV (PDF, anglais)',
-      'contact.tag':'CONTACT','contact.title':'Parlons.','contact.phone':'Ou au',
-      'footer.top':'Retour en haut','footer.note':'Fondateur & CEO · iVISION · Sawtify · eFOLIO','footer.tagline':'Code · IA · Growth · Image',
-      'ui.localtime':'HEURE LOCALE','wa.label':'Discute avec moi'
-    },
-    en: {
-      'nav.index':'Index','nav.work':'Work','nav.portfolio':'Portfolio','nav.about':'About','nav.contact':'Contact','nav.cv':'CV',
-      'hero.sub':'Development · AI & automation · Growth · Art direction',
-      'hero.scroll':'SCROLL',
-      'index.label':'FOUR CRAFTS','index.note':'Hover a discipline for a preview · click to see the project','index.noteTouch':'Tap a discipline to see the project',
-      'p1':'Web & Software Development','p2':'AI & Automation','p3':'Digital Marketing, Growth & E-commerce','p4':'Art Direction & Multimedia',
-      'work.label':'REAL PROJECTS · iVISION AGENCY','work.more':'View project',
-      'cat1':'DEVELOPMENT & SAAS','cat2':'AI & AUTOMATION','cat3':'GROWTH & E-COMMERCE','cat4':'ART DIRECTION',
-      'c1':'Dubai real-estate website: immersive hero, opportunities, journal and contact.',
-      'c2':'AI chat assistant for businesses: replies in French and Darja, demo and client area.',
-      'c3':'Digital loyalty product: smart QR codes, secure validation and real-time notifications.',
-      'c4':'Match-day posters and visual direction for the club: compositing, light and typography.',
-      'about.tag':'ABOUT','about.l1':'One profile,','about.l2':'four crafts.',
-      'about.text':'CEO & Founder of iVISION Agency — also CEO of Sawtify and eFOLIO. SaaS development, AI automation and growth for 40+ client accounts. Art direction and visual production since 2018.',
-      'cv.toggle':'Background & skills','cv.hide':'Hide background','cv.exp':'EXPERIENCE',
-      'cv.e1':'Founder & Marketing Manager · iVISION Agency (40+ client accounts)',
-      'cv.e2':'Freelance Developer & SaaS Builder · custom web applications',
-      'cv.e3date':'June 2024 —','cv.e3':'Art Director · MS Cherchell (football club)',
-      'cv.e4':'Graphic Designer · JIL-FM (national radio)',
-      'cv.e5':'Media Manager · Club MSC',
-      'cv.e6':'Freelance Graphic Designer, Video Editor & Videographer',
-      'cv.projectsLabel':'PROJECTS','cv.projects':'RAWDHA+ · Fidali · MOVESMART (Dubai) · Influnzy',
-      'cv.skills':'SKILLS',
-      'cv.s1t':'Dev','cv.s1':'React · TypeScript · Next.js · Vite · Tailwind · Python · Supabase · PostgreSQL · REST APIs · GitHub · Vercel',
-      'cv.s2t':'AI','cv.s2':'AI agents · prompt engineering · fine-tuning · RAG · Claude Code · LLM APIs · Edge Functions · pg_cron · webhooks',
-      'cv.s3t':'Growth','cv.s3':'Meta Ads · GA4 · conversion funnels · Shopify · cash on delivery · Fidali',
-      'cv.s4t':'Creative','cv.s4':'Art direction · visual identity · UI/UX · photography · video · Photoshop · Illustrator · InDesign · Premiere Pro · After Effects · CapCut · Sony Vegas',
-      'cv.edu':'EDUCATION & LANGUAGES',
-      'cv.edu1':'Higher Technician Diploma in Computer Science, Database Management — INSFP Bousmail, 2021',
-      'cv.edu2':'Internship certificate in graphic design & video editing — Ministry of Higher Education, Algeria, 2022',
-      'cv.edu3':'Claude 101 & Claude Code in Action — Anthropic Education',
-      'cv.lang':'Arabic: native · French: fluent · English: professional',
-      'cv.linksLabel':'PORTFOLIOS','cv.link1':'Websites ↗','cv.link2':'Social & video ↗',
-      'folio.label':'PORTFOLIO — iVISION AGENCY','folio.meta':'REAL SCREENSHOTS',
-      'folio.t1':'Real projects,','folio.t2':'in the wild.',
-      'folio.intro':'A selection of sites and creative work from the iVISION studio. Click a screenshot to open the project.',
-      'folio.btn1':'Full web portfolio','folio.btn2':'Social & video portfolio','folio.visit':'View project ↗',
-      'cv.download':'Download résumé (PDF)',
-      'contact.tag':'CONTACT','contact.title':'Let’s talk.','contact.phone':'Or call',
-      'footer.top':'Back to top','footer.note':'Founder & CEO · iVISION · Sawtify · eFOLIO','footer.tagline':'Code · AI · Growth · Image',
-      'ui.localtime':'LOCAL TIME','wa.label':'Chat with me'
-    }
+  const fr = {
+    'nav.index':'Expertises','nav.work':'Projets phares','nav.mcp':'MCP & Open Source','nav.arch':'Architecture (ADR)','nav.portfolio':'Tous les projets (20)','nav.about':'À propos','nav.contact':'Contact',
+    'hero.kicker':'AI PRODUCT ENGINEER · SYSTÈMES IA FULL-STACK & BACKEND · EN / FR / AR','hero.pill1':'Serveur OAuth 2.1 en production','hero.pill2':'Coût LLM : RAG/cache hybride','hero.pill3':'Repos TypeScript & IA publics','hero.pill4':'Déploiements clients B2B',
+    'hero.sub':'Je construis des produits IA de 0 à 1, agents LLM et vocaux omnicanaux, intégrations MCP et SaaS multi-tenant — avec la fiabilité backend et la vitesse produit.','hero.ctaWork':'Explorer les systèmes IA','hero.ctaArch':'Lire les choix d’architecture','hero.scroll':'DÉFILER',
+    'index.label':'PILIERS D’INGÉNIERIE','index.note':'Survolez une expertise pour un aperçu · cliquez pour découvrir','index.noteTouch':'Touchez une expertise pour voir le projet',
+    'p1':'Produit IA & ingénierie vocale de 0 à 1','p1.sub':'TTS dialectal, agents vocaux Live, streaming, clés API & portefeuille prépayé','p2':'Systèmes IA backend, RAG & coûts','p2.sub':'Context caching dynamique, RAG borné, outils à la demande & garde-fous','p3':'SaaS full-stack multi-tenant & temps réel','p3.sub':'Next.js 14, React 19, TypeScript, Supabase PostgreSQL, RLS, Web Push & OAuth','p4':'Intégration IA & solutions engineering','p4.sub':'Serveurs MCP OAuth 2.1, webhooks omnicanaux & ROI B2B sur 40+ comptes',
+    'work.label':'PROJETS SÉLECTIONNÉS','work.sublabel':'DES PRODUITS CONÇUS DE A À Z','work.heading':'Des idées aux produits concrets.','work.intro':'Une sélection de produits que j’ai imaginés, construits et lancés.','work.sysBtn':'Explorer le système','work.more':'Application',
+    'cat1':'IA VOCALE · SERVEUR MCP · TÉLÉPHONIE','cat2':'AGENTS OMNICANAUX · RAG & CACHE HYBRIDES','cat3':'SAAS MULTI-TENANT · TEMPS RÉEL & SHOPIFY','cat4':'INTÉGRATION IA B2B · SOLUTIONS & GROWTH',
+    'c1':'Plateforme TTS darija/FR/EN, agent vocal Live, API développeur SHA-256 et connecteur MCP OAuth 2.1, avec relais GSM PCM Android Kotlin.','c2':'Chat et agent vocal IA B2B multi-tenant, automatisation Instagram/Messenger, RAG borné, cache de 10 min et capture de leads.','c3':'SaaS de fidélité B2B2C Next.js et Supabase : validation QR, notifications Web Push, analytics et synchronisation Shopify OAuth.','c4':'OS opérationnel B2B sur mesure, moteur de stratégie IA, qualification de leads et pipelines de conversion pour plus de 40 comptes clients.',
+    'm1.a':'303/303 tests moteur','m1.b':'Serveur MCP OAuth 2.1','m1.c':'30 voix · WAV 24 kHz','m2.a':'−74 % coût tokens catalogue','m2.b':'−59 % taille du prompt vocal','m2.c':'Garde-fou sur la base de connaissances','m3.a':'Next.js 14 · 181 modules TS','m3.b':'Web Push VAPID','m3.c':'Application Shopify OAuth','m4.a':'40+ comptes B2B actifs','m4.b':'ERP & CRM IA interne','m4.c':'PDF & leads automatisés',
+    'mcp.label':'MODEL CONTEXT PROTOCOL (MCP) & REPOS PUBLICS','mcp.meta':'INFRASTRUCTURE AGENT EN PRODUCTION','mcp.t1':'Serveur MCP en production','mcp.t2':'& 35 repos publics.','mcp.desc':'Construit avec @modelcontextprotocol/sdk, OAuth 2.1 + PKCE, inscription dynamique et clés API SHA-256. Les clients IA peuvent lister les voix, synthétiser la parole, consulter les crédits et l’historique.','mcp.btnRepo':'Explorer le code MCP sur GitHub','mcp.btnAdr':'Lire les 5 ADR','mcp.live':'OAUTH 2.1 + BEARER','mcp.copy':'Copier l’URL','mcp.tool1':'Lister 30 voix et dialectes','mcp.tool2':'Synthétiser en WAV 24 kHz','mcp.tool3':'Consulter le solde en temps réel','mcp.tool4':'Récupérer les URL audio signées','mcp.foot':'Compatible avec Claude Connectors, ChatGPT Developer Mode et Claude Code CLI.',
+    'folio.label':'CATALOGUE PRODUITS & INGÉNIERIE','folio.meta':'AGENTS IA · PLATEFORMES SAAS · WEB & MARQUE','folio.t1':'Tous les projets,','folio.t2':'sur le terrain.','folio.intro':'Des agents IA et plateformes SaaS aux sites web et identités visuelles. Filtrez par domaine ou explorez directement le code.','filter.all':'Tous les projets','filter.ai':'IA & agents','filter.saas':'SaaS & plateformes','filter.web':'Web, growth & marque','folio.btnArch':'Lire les ADR d’ingénierie','folio.btnGh':'Les 35 repos sur GitHub','folio.btn1':'Archives web iVISION',
+    'about.tag':'À PROPOS & PARCOURS','about.l1':'Pensée système,','about.l2':'création de 0 à 1.','about.text':'AI Product Engineer, développeur full-stack et fondateur technique (iVISION, Sawtify, JawebFlow, Fidali). Je conçois des systèmes LLM et vocaux de bout en bout : schémas PostgreSQL, webhooks, serveurs MCP et interfaces React/Next.js, déployés auprès de plus de 40 comptes B2B.',
+    'cv.toggle':'Stack, expérience & formation','cv.hide':'Masquer le parcours','cv.skills':'STACK TECHNIQUE','cv.s2t':'Systèmes IA','cv.s1t':'Full-Stack','cv.s3t':'Intégrations','cv.s4t':'UX produit','cv.s4':'Design systems · interfaces vocales & streaming · direction artistique · Adobe · vidéo','cv.exp':'EXPÉRIENCE','cv.e1':'Fondateur technique & responsable IA · iVISION Agency & SaaS Studio (40+ comptes B2B)','cv.e2':'Ingénieur produit IA & SaaS full-stack · plateformes multi-tenant de 0 à 1','cv.e3date':'Juin 2024 —','cv.e3':'Directeur artistique · MS Cherchell','cv.e4':'Designer visuel · JIL-FM (radio nationale)','cv.e6':'Product designer, directeur artistique & producteur multimédia','cv.edu':'FORMATION, CERTIFICATIONS & LANGUES','cv.edu1':'Technicien supérieur en informatique, gestion de bases de données — INSFP Bousmail, 2021','cv.edu2':'Certificat en design graphique et production vidéo — Ministère de l’Enseignement supérieur, 2022','cv.lang':'Anglais : professionnel · Français : courant · Arabe / Darija : natif','cv.linksLabel':'LIENS','cv.link1':'Archives web ↗','cv.download':'Télécharger le CV complet (PDF, anglais)',
+    'contact.tag':'OPPORTUNITÉS INTERNATIONALES · PRODUIT IA, FOUNDING & INTÉGRATION','contact.title':'Construisons ensemble.','contact.phone':'Direct / WhatsApp :','contact.archLink':'Explorer l’architecture & les ADR ↗','footer.top':'Retour en haut','footer.note':'AI Product Engineer · Systèmes IA Full-Stack & Backend','footer.tagline':'Systèmes LLM · MCP · SaaS multi-tenant · Produit','modal.kicker':'ARCHITECTURE · COMPROMIS & VISITE GUIDÉE','modal.flowLabel':'PIPELINE DE PRODUCTION','modal.tradeoffLabel':'DÉCISION TECHNIQUE & COMPROMIS (ADR)','modal.loomLabel':'VISITE GUIDÉE DU SYSTÈME','modal.fullAdr':'Lire l’ADR complet & les benchmarks','wa.label':'Message direct',
+    'arch.backHome':'← Portfolio','arch.kicker':'DÉCISIONS D’ARCHITECTURE (ADR) · SYSTÈMES EN PRODUCTION','arch.t1':'Pourquoi le système','arch.t2':'est conçu ainsi.','arch.lead':'L’ingénierie IA en production repose sur des compromis : coûts des tokens et du cache, limites des hallucinations, sécurité OAuth 2.1, latence vocale dialectale et isolation multi-tenant. Voici cinq décisions issues de mes projets.','arch.stat1':'Coût LLM catalogue marchand (cache 10 min)','arch.stat2':'Taille du prompt vocal (outil à la demande)','arch.stat3':'Vérifications automatisées TTS, tags et phonétique','arch.stat4':'Serveur MCP PKCE + clés développeur SHA-256','arch.tocTitle':'JOURNAL DES DÉCISIONS','arch.backFlagships':'Retour aux projets phares','arch.backPortfolioLink':'← Retour au portfolio complet (20 projets)',
+    'adr.status':'EN PRODUCTION','adr.whyTitle':'DÉCISION & MÉCANISME','adr.altTitle':'POURQUOI PAS PINECONE OU UN CACHE DE 24 H ?','adr.limitTitle':'COMPROMIS ACCEPTÉ & LIMITE CONNUE','adr.source':'VÉRIFIÉ DANS LE REPO :',
+    'adr1.short':'RAG borné hybride ou cache de contexte 10 min','adr1.title':'Routage dynamique entre RAG borné et cache de contexte explicite court','adr1.summary':'Les bases de connaissances des marchands varient de quelques FAQ à plus de 60 fiches produit. Une seule stratégie gaspillerait des tokens ou des frais de stockage.','adr1.decision':'Un seuil avant appel vérifie les caractères/tokens. Sous le minimum Gemini de 4 096 tokens, le RAG borné évite la création de cache. Au-delà, un cache explicite de 10 minutes permet de relire le catalogue à 10 % du prix des tokens.','adr1.alt':'Une base vectorielle externe ajoute des coûts, de la latence et des risques de désynchronisation. Un cache de 24 h coûte davantage en stockage ; une fenêtre de 10 min couvre les conversations actives et expire ensuite.','adr1.th1':'Charge mesurée','adr1.th2':'Avant','adr1.th3':'Après routage','adr1.th4':'Écart mesuré','adr1.limit':'Pour les grands catalogues, le cache devient rentable autour de 1 300 messages par mois ; à très faible trafic, son coût d’écriture réduit les économies. Le TTL de 600 s limite ce risque.',
+    'adr2.short':'Prompt vocal sans base & récupération par outil','adr2.title':'Prompt vocal sans base de connaissances et récupération bornée à la demande','adr2.summary':'En conversation vocale Live, les tokens du prompt système sont facturés à chaque tour, même pour une simple salutation. Inclure tout le catalogue augmente latence et coûts.','adr2.decision':'La base est retirée du prompt vocal (8 676 à 3 520 caractères, −59 %). Sur une question factuelle, le modèle appelle chercher_information, limité à 900 caractères ; les échanges courants ne déclenchent aucune recherche.','adr2.guardTitle':'GARDE-FOUS DE RÉCUPÉRATION','adr2.guard':'Les mots vides sont supprimés et une règle exige un recoupement lexical : sans correspondance dans la base, l’outil renvoie une réponse vide plutôt qu’un texte générique, pour permettre à l’agent de dire qu’il ne sait pas.','adr2.limit':'Une question factuelle ajoute un aller-retour HTTP léger, compromis contre une réduction du prompt par tour et un meilleur contrôle des réponses.',
+    'adr3.short':'MCP distant OAuth 2.1 + PKCE & clés SHA-256','adr3.title':'Serveur MCP distant à double authentification : OAuth 2.1 + PKCE et clés SHA-256','adr3.summary':'Sawtify doit prendre en charge le consentement utilisateur interactif et les intégrations serveur à serveur sans stocker de secrets en clair.','adr3.decision':'Serveur MCP via le SDK officiel, routage Cloudflare, inscription dynamique et PKCE S256. Les clés développeur swt_beta_* sont affichées une seule fois et stockées sous forme de condensats SHA-256.','adr3.alt':'Sans MCP_OAUTH_SECRET suffisamment long, le connecteur se désactive plutôt que d’utiliser une signature faible. Les clés développeur en clair ne sont pas stockées.','adr3.limit':'Les codes OAuth à usage unique sont conservés en mémoire sur une instance avec un TTL de cinq minutes. Un redémarrage impose une nouvelle autorisation, mais évite Redis à cette échelle.',
+    'adr4.short':'Raisonnement Live et TTS dialectal découplés','adr4.title':'Découpler le raisonnement Live, le TTS dialectal et la facturation serveur','adr4.summary':'Les modèles vocaux natifs ne préservent pas toujours la prononciation darija ni la voix de marque. Un minuteur côté client peut également être manipulé.','adr4.decision':'Gemini Live traite l’audio et les appels d’outils ; son texte est vocalisé par le TTS Sawtify 24 kHz. Le cycle d’appel est mesuré côté serveur. En cas d’échec TTS, la transcription reste disponible.','adr4.testTitle':'VÉRIFICATION & RELAIS GSM','adr4.test':'Une suite de 303 vérifications couvre notamment le TTS, les noms et les tags. Un service Android Kotlin relaie l’audio PCM par WebSocket pour la téléphonie GSM.','adr4.limit':'Le passage par le TTS ajoute de la latence par rapport à l’audio natif, en échange de la prosodie darija et de la cohérence de la voix. Un paramètre permet de revenir au mode natif.',
+    'adr5.short':'Webhooks à règles prioritaires & multi-tenant Supabase','adr5.title':'Webhooks à règles prioritaires, migration Supabase & QR/Push sans application','adr5.summary':'Sur les projets B2B, les risques incluent les appels LLM inutiles, les erreurs de permissions serveur silencieuses et la friction liée à l’installation d’une application.','adr5.sub1':'1. RÈGLES AVANT LLM POUR LES WEBHOOKS','adr5.p1':'Sur Instagram, un moteur déterministe insensible à la casse et aux accents traite les déclencheurs français, arabes et arabizi avant Gemini. Les règles fonctionnent même lorsque l’IA est désactivée.','adr5.sub2':'2. SUPABASE POSTGRES & UX SANS APPLICATION','adr5.p2':'Migration des tables JawebFlow de Firestore vers Supabase PostgreSQL, avec service_role côté serveur et maintien des sessions Firebase. Fidali et RAWDHA+ combinent RLS, QR navigateur et Web Push.','adr5.limit':'Les environnements Express local et Cloudflare en production nécessitent des modules TypeScript partagés afin de maintenir les règles métier cohérentes.'
   };
-
-  let lang = 'fr';
-  try { lang = localStorage.getItem('pf2-lang') === 'en' ? 'en' : 'fr'; } catch (e) {}
-
-  function applyLang(next) {
-    lang = next;
-    root.lang = lang;
-    const dict = I18N[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (key in dict) el.textContent = dict[key];
+  const original = new Map();
+  $$('[data-i18n]').forEach(el => original.set(el, el.textContent));
+  let lang = navigator.language.toLowerCase().startsWith('fr') ? 'fr' : 'en';
+  try { const saved = localStorage.getItem('pf2-lang'); if (saved === 'fr' || saved === 'en') lang = saved; } catch (_) {}
+  let filter = 'all', openId = null, opener = null;
+  const text = (en, french) => lang === 'fr' ? french : en;
+  function bind() {
+    $$('[data-bind]').forEach(el => { let key=el.dataset.bind, value=SITE[key]; if(key==='firstName') value=SITE.name?.split(' ')[0]; if(key==='lastName') value=SITE.name?.split(' ').slice(1).join(' '); if(value && typeof value==='object') value=value[lang]; if(value != null) el.textContent=value; });
+    $$('[data-bind-href]').forEach(el => { const key=el.dataset.bindHref; let v=SITE[key]; if(key==='email') v='mailto:'+v; if(key==='phone' || key==='phoneHref') v='tel:'+SITE.phoneHref; if(v) el.href=v; });
+  }
+  function renderCards() {
+    const grid=$('#captureGrid'); if(!grid) return; grid.replaceChildren();
+    const labels={ai:text('AI & Agents','IA & agents'),saas:text('SaaS & Platforms','SaaS & plateformes'),web:text('Web, Growth & Brand','Web, growth & marque')};
+    (SITE.captures || []).filter(c=>filter==='all'||c.cat===filter).forEach(c=>{
+      const card=document.createElement('article'); card.className='cap-card';
+      const media=document.createElement('div'); media.className='cap-card__img shot';
+      if(c.img){const img=document.createElement('img');img.src='assets/img/'+c.img;img.alt=c.label;img.loading='lazy';media.append(img);} else {const bp=document.createElement('div');bp.className='bp-canvas'; const bar=document.createElement('div');bar.className='bp-canvas__bar';bar.textContent=c.blueprint || 'SYSTEM BLUEPRINT';const mid=document.createElement('div');mid.className='bp-canvas__mid';const name=document.createElement('strong');name.className='bp-canvas__name';name.textContent=c.label;mid.append(name);const foot=document.createElement('div');foot.className='bp-canvas__foot';foot.textContent=c.route||c.stack;bp.append(bar,mid,foot);media.append(bp);}
+      const body=document.createElement('div');body.className='cap-card__body';const cat=document.createElement('span');cat.className='cap-card__cat';cat.textContent=labels[c.cat];const title=document.createElement('h3');title.textContent=c.label;const desc=document.createElement('p');desc.className='cap-card__desc';desc.textContent=c.desc?.[lang]||'';const stack=document.createElement('p');stack.className='cap-card__stack';stack.textContent=c.stack||'';const links=document.createElement('div');links.className='cap-card__links'; [[c.url,text('Live App ↗','Voir le projet ↗')],[c.repo,'GitHub ↗'],[c.adr,'ADR ↗']].forEach(([url,label])=>{if(!url)return;const a=document.createElement('a');a.href=url;a.textContent=label;if(/^https?:/.test(url)){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);});body.append(cat,title,desc,stack,links);card.append(media,body);grid.append(card);
     });
-    const panel = document.getElementById('cvPanel');
-    if (panel && panel.classList.contains('is-open')) {
-      const lbl = document.querySelector('.cv-toggle__label');
-      if (lbl) lbl.textContent = dict['cv.hide'];
-    }
-    const btn = document.getElementById('langToggle');
-    if (btn) {
-      btn.textContent = lang === 'fr' ? 'EN' : 'FR';
-      const label = lang === 'fr' ? 'Switch to English' : 'Passer en français';
-      btn.title = label; btn.setAttribute('aria-label', label);
-    }
-    document.querySelectorAll('[data-set-lang]').forEach(b => {
-      const active = b.dataset.setLang === lang;
-      b.classList.toggle('is-active', active);
-      b.setAttribute('aria-pressed', String(active));
-    });
-    updateClock();
-    try { localStorage.setItem('pf2-lang', lang); } catch (e) {}
+    $$('#folioFilters [data-filter]').forEach(b=>{let active=b.dataset.filter===filter;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));const count=b.querySelector('.filter-count');if(count)count.textContent='('+(SITE.captures||[]).filter(c=>b.dataset.filter==='all'||c.cat===b.dataset.filter).length+')';});
   }
-
-  /* ---------------------------------------------------------
-     2. Identité & liens (config.js)
-     --------------------------------------------------------- */
-  function bindConfig() {
-    const parts = (SITE.name || '').trim().split(/\s+/).filter(Boolean);
-    const firstName = parts[0] || '';
-    const lastName = parts.length > 1 ? parts.slice(1).join(' ') + '.' : '';
-    const map = {
-      name:SITE.name, role:SITE.role, email:SITE.email, location:SITE.location,
-      year:SITE.year, phone:SITE.phone, firstName, lastName
-    };
-    document.querySelectorAll('[data-bind]').forEach(el => {
-      const k = el.getAttribute('data-bind');
-      if (map[k] !== undefined) el.textContent = map[k];
-    });
-    document.querySelectorAll('[data-bind-href]').forEach(el => {
-      const k = el.getAttribute('data-bind-href');
-      if (k === 'email') el.setAttribute('href', 'mailto:' + (SITE.email || '#'));
-      else if (k === 'phoneHref') el.setAttribute('href', 'tel:' + (SITE.phoneHref || SITE.phone || ''));
-      else if (k === 'cv') el.setAttribute('href', SITE.cv || 'assets/RESUMEanglais.pdf');
-      else if (k === 'portfolioSites') el.setAttribute('href', SITE.portfolioSites || 'https://ivision.agency/');
-      else if (k === 'portfolioSocial') el.setAttribute('href', SITE.portfolioSocial || 'https://ivision.agency/');
-      else if (k === 'agency') el.setAttribute('href', SITE.agency || 'https://ivision.agency/');
-    });
-    if (SITE.seoTitle) document.title = SITE.seoTitle;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta && SITE.seoDescription) meta.setAttribute('content', SITE.seoDescription);
-
-    const box = document.getElementById('socials');
-    if (box && Array.isArray(SITE.socials)) {
-      box.innerHTML = '';
-      SITE.socials.forEach(s => {
-        const a = document.createElement('a');
-        a.href = s.url || '#';
-        a.textContent = s.label;
-        if (s.download) a.setAttribute('download', '');
-        else if (s.url && /^https?:/.test(s.url)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
-        box.appendChild(a);
-      });
-    }
-
-    const grid = document.getElementById('captureGrid');
-    if (grid && Array.isArray(SITE.captures)) {
-      grid.innerHTML = '';
-      SITE.captures.forEach(c => {
-        const a = document.createElement('a');
-        a.className = 'cap-card line';
-        a.setAttribute('data-anim', '');
-        a.href = c.url || '#';
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        const frame = document.createElement('div');
-        frame.className = 'cap-card__img';
-        const im = document.createElement('img');
-        im.src = 'assets/img/' + c.img;
-        im.alt = 'Capture réelle du projet ' + c.label;
-        im.loading = 'lazy';
-        frame.appendChild(im);
-        const tag = document.createElement('span');
-        tag.className = 'shot__tag';
-        tag.textContent = c.label;
-        frame.appendChild(tag);
-        const meta = document.createElement('div');
-        meta.className = 'cap-card__meta';
-        const strong = document.createElement('strong');
-        strong.textContent = c.label;
-        const span = document.createElement('span');
-        span.setAttribute('data-i18n', 'folio.visit');
-        span.textContent = I18N[lang]['folio.visit'];
-        meta.append(strong, span);
-        a.append(frame, meta);
-        grid.appendChild(a);
-      });
-    }
+  function renderModal() {
+    const s=SITE.flagships?.[openId]; if(!s)return;
+    $('#sysModalTitle').textContent=s.title; const flow=$('#sysModalFlow'); flow.replaceChildren();s.flow.forEach((v,i)=>{if(i){const a=document.createElement('span');a.className='sys-flow__arrow';a.textContent='→';flow.append(a);}const node=document.createElement('span');node.className='sys-flow__node';node.textContent=v;flow.append(node);});
+    const metrics=$('#sysModalMetrics');metrics.replaceChildren();s.metrics[lang].forEach(v=>{const e=document.createElement('span');e.textContent=v;metrics.append(e);});$('#sysModalTradeoff').textContent=s.tradeoff[lang];
+    $('#sysModalAdrLink').hidden=!s.adrUrl;if(s.adrUrl)$('#sysModalAdrLink').href=s.adrUrl;$('#sysModalLiveLink').href=s.liveUrl;$('#sysModalRepoLink').href=s.repoUrl;
+    const loom=$('#sysModalLoom');loom.replaceChildren(); const url=SITE.loom?.[openId]; let embed; try {const u=new URL(url);if((u.hostname==='www.loom.com'||u.hostname==='loom.com') && /^\/(share|embed)\/[\w-]+/.test(u.pathname)) embed='https://www.loom.com/embed/'+u.pathname.split('/')[2];}catch(_){}
+    if(embed){const iframe=document.createElement('iframe');iframe.src=embed;iframe.loading='lazy';iframe.title=s.title+' walkthrough';iframe.allowFullscreen=true;loom.append(iframe);}else{const steps=document.createElement('div');steps.className='sys-loom__steps';[s.flow.slice(0,2),s.flow.slice(2,4),s.flow.slice(4)].forEach((part,i)=>{const d=document.createElement('div');d.className='sys-loom__step';const b=document.createElement('b');b.textContent=text('STEP ','ÉTAPE ')+(i+1);const span=document.createElement('span');span.textContent=part.join(' → ');d.append(b,span);steps.append(d);});loom.append(steps);}
   }
-  bindConfig();
-
-  /* ---------------------------------------------------------
-     3. Header, progression, langue, menu
-     --------------------------------------------------------- */
-  /* Nom compact sur mobile (prénom seul) ou complet — piloté en inline pour rester robuste même si un vieux style.css est servi en cache */
-  const brandFull = document.querySelector('.brand__full');
-  const brandShort = document.querySelector('.brand__short');
-  function syncBrandName() {
-    if (!brandFull || !brandShort) return;
-    const compact = window.matchMedia('(max-width:900px)').matches;
-    brandFull.style.display = compact ? 'none' : '';
-    brandShort.style.display = compact ? '' : 'none';
-  }
-  window.addEventListener('resize', syncBrandName, { passive:true });
-
-  const header = document.getElementById('header');
-  const bar = document.getElementById('progressBar');
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  const stage = document.getElementById('work');
-  const heroImg = document.querySelector('.hero__media img');
-  let ticking = false;
-
-  function onScroll() {
-    const y = window.scrollY || document.documentElement.scrollTop;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    if (bar) bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
-    if (heroImg && !reduceMotion && !window.matchMedia('(max-width:900px)').matches) {
-      const hy = Math.min(y, window.innerHeight);
-      heroImg.style.objectPosition = 'center ' + (48 + hy * 0.012).toFixed(2) + '%';
-    }
-    const menuOpen = menu.classList.contains('is-open');
-    header.classList.toggle('is-solid', y > 40 || menuOpen);
-    const sr = stage.getBoundingClientRect();
-    header.classList.toggle('is-over-media', !menuOpen && sr.top <= 0 && sr.bottom > 96);
-    updateStage();
-    syncReveals();
-    ticking = false;
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
-  }, { passive:true });
-
-  function setMenu(open) {
-    menu.classList.toggle('is-open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? (lang === 'fr' ? 'Fermer le menu' : 'Close menu') : (lang === 'fr' ? 'Ouvrir le menu' : 'Open menu'));
-    menu.setAttribute('aria-hidden', String(!open));
-    document.body.classList.toggle('menu-open', open);
-    header.classList.toggle('is-solid', open || window.scrollY > 40);
-    if (open) header.classList.remove('is-over-media');
-  }
-  menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-  document.getElementById('langToggle').addEventListener('click', () => applyLang(lang === 'fr' ? 'en' : 'fr'));
-  document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.setLang)));
-
-  /* ---------------------------------------------------------
-     4. Parcours dépliable
-     --------------------------------------------------------- */
-  const cvToggle = document.getElementById('cvToggle');
-  const cvPanel = document.getElementById('cvPanel');
-  function setCv(open) {
-    cvToggle.classList.toggle('is-open', open);
-    cvToggle.setAttribute('aria-expanded', String(open));
-    cvPanel.classList.toggle('is-open', open);
-    cvPanel.inert = !open;
-    cvPanel.setAttribute('aria-hidden', String(!open));
-    const lbl = cvToggle.querySelector('.cv-toggle__label');
-    if (lbl) lbl.textContent = open ? I18N[lang]['cv.hide'] : I18N[lang]['cv.toggle'];
-  }
-  cvToggle.addEventListener('click', () => setCv(!cvPanel.classList.contains('is-open')));
-
-  /* ---------------------------------------------------------
-     5. Index : aperçu au survol + saut vers le projet
-     --------------------------------------------------------- */
-  const rows = [...document.querySelectorAll('.index-row')];
-  const preview = document.getElementById('preview');
-  const previewImg = document.getElementById('previewImg');
-  const images = ['real-movesmart.webp','real-jawebflow.webp','real-fidali.webp','real-msc.webp'];
-
-  function goToStep(i, smooth) {
-    if (window.matchMedia('(max-width:900px)').matches) {
-      const items = document.querySelectorAll('.work-m__item');
-      if (items[i]) {
-        const top = items[i].getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: Math.max(0, top), behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
-      }
-      return;
-    }
-    const total = stage.offsetHeight - window.innerHeight;
-    const top = stage.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: Math.max(0, top + ((i + 0.12) / 4) * total), behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
-  }
-  rows.forEach(row => {
-    const i = Number(row.dataset.index);
-    row.querySelector('a').addEventListener('click', e => { e.preventDefault(); goToStep(i, true); });
-    if (finePointer && !reduceMotion) {
-      row.addEventListener('mouseenter', () => {
-        previewImg.src = 'assets/img/' + images[i];
-        preview.classList.add('is-on');
-      });
-      row.addEventListener('mouseleave', () => preview.classList.remove('is-on'));
-      row.addEventListener('mousemove', e => {
-        preview.style.left = e.clientX + 'px';
-        preview.style.top = e.clientY + 'px';
-      });
-    }
-  });
-
-  /* ---------------------------------------------------------
-     6. Galerie plein écran
-     --------------------------------------------------------- */
-  const figures = [...document.querySelectorAll('.stage__img')];
-  const caps = [...document.querySelectorAll('.cap')];
-  const num = document.getElementById('stageNum');
-  const fill = document.getElementById('railFill');
-  let current = -1;
-
-  function updateStage() {
-    if (!stage || reduceMotion || window.matchMedia('(max-width:900px)').matches) return;
-    const rect = stage.getBoundingClientRect();
-    const total = stage.offsetHeight - window.innerHeight;
-    if (total <= 0 || rect.top > window.innerHeight || rect.bottom < 0) return;
-    const p = Math.min(1, Math.max(0, -rect.top / total));
-    const idx = Math.min(figures.length - 1, Math.floor(p * figures.length));
-    if (idx !== current) {
-      current = idx;
-      figures.forEach((f, n) => f.classList.toggle('is-active', n === idx));
-      caps.forEach((c, n) => c.classList.toggle('is-active', n === idx));
-      if (num) {
-        num.textContent = String(idx + 1).padStart(2, '0');
-        if (!reduceMotion) {
-          num.classList.remove('is-bump');
-          void num.offsetWidth;
-          num.classList.add('is-bump');
+  function clock(){const el=$('#localTime');if(el)el.textContent=text('LOCAL TIME','HEURE LOCALE')+' '+new Intl.DateTimeFormat(lang==='fr'?'fr-FR':'en-GB',{hour:'2-digit',minute:'2-digit',timeZone:SITE.timezone||'Africa/Algiers'}).format(new Date());}
+  function applyLang(next){lang=next;root.lang=lang;original.forEach((v,el)=>{el.textContent=lang==='fr'?(fr[el.dataset.i18n]||v):v;});bind();const btn=$('#langToggle');if(btn){btn.textContent=lang==='fr'?'EN':'FR';btn.setAttribute('aria-label',lang==='fr'?'Switch to English':'Passer en français');}$$('[data-set-lang]').forEach(b=>{b.classList.toggle('is-active',b.dataset.setLang===lang);b.setAttribute('aria-pressed',String(b.dataset.setLang===lang));});const arch=document.body.classList.contains('page-arch');document.title=arch?text('Architecture & ADRs — Abdelmalek Labbaci','Architecture & ADR — Abdelmalek Labbaci'):SITE.seoTitle?.[lang]||document.title;const meta=$('meta[name="description"]');if(meta)meta.content=arch?text('Architecture decisions and production system trade-offs by Abdelmalek Labbaci.','Décisions d’architecture et compromis des systèmes en production par Abdelmalek Labbaci.'):SITE.seoDescription?.[lang]||meta.content;if($('#cvPanel')?.classList.contains('is-open'))$('.cv-toggle__label').textContent=text('Hide background','Masquer le parcours');renderCards();if(openId)renderModal();clock();try{localStorage.setItem('pf2-lang',lang);}catch(_){} }
+  $('#langToggle')?.addEventListener('click',()=>applyLang(lang==='fr'?'en':'fr'));$$('[data-set-lang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.setLang)));
+  $('#folioFilters')?.addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(b){filter=b.dataset.filter;renderCards();}});
+  const modal=$('#sysModal'); function closeModal(){if(!modal)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');$('#sysModalLoom').replaceChildren();openId=null;opener?.focus();}
+  $$('[data-open-sys]').forEach(b=>b.addEventListener('click',()=>{openId=b.dataset.openSys;opener=b;renderModal();modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#sysModalClose').focus();}));$('#sysModalClose')?.addEventListener('click',closeModal);modal?.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  $('#copyMcpBtn')?.addEventListener('click',async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText(SITE.mcpEndpoint);b.textContent=text('Copied!','Copié !');setTimeout(()=>{b.textContent=text('Copy URL','Copier l’URL');},2000);}catch(_){b.textContent=text('Copy failed','Échec de la copie');}});
+  const menu=$('#mobileMenu'), menuBtn=$('#menuBtn'), header=$('#header');function setMenu(open){if(!menu||!menuBtn)return;menu.classList.toggle('is-open',open);menuBtn.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-hidden',String(!open));menu.inert=!open;document.body.classList.toggle('menu-open',open);header?.classList.toggle('is-solid',open||scrollY>40||document.body.classList.contains('page-arch'));}if(menu)menu.inert=true;menuBtn?.addEventListener('click',()=>setMenu(!menu.classList.contains('is-open')));menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(openId)closeModal();else setMenu(false);}if(e.key==='Tab' && openId){const focusable=[...modal.querySelectorAll('button, a[href], iframe')].filter(el=>!el.hidden && el.offsetParent!==null);if(focusable.length){const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}});
+  const cv=$('#cvPanel'), cvToggle=$('#cvToggle');if(cv&&cvToggle){cv.inert=true;cv.setAttribute('aria-hidden','true');cvToggle.addEventListener('click',()=>{const open=!cv.classList.contains('is-open');cv.classList.toggle('is-open',open);cv.inert=!open;cv.setAttribute('aria-hidden',String(!open));cvToggle.classList.toggle('is-open',open);cvToggle.setAttribute('aria-expanded',String(open));$('.cv-toggle__label').textContent=open?text('Hide background','Masquer le parcours'):text('Engineering stack, experience & education','Stack, expérience & formation');});}
+  const socials=$('#socials');if(socials)(SITE.socials||[]).forEach(s=>{const a=document.createElement('a');a.href=s.url;a.textContent=s.label+' ↗';if(s.download)a.download='';if(s.url.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}socials.append(a);});
+  const stage=$('#work'), figures=$$('.stage__img'), caps=$$('.cap');function scroll(){const max=document.documentElement.scrollHeight-innerHeight;if($('#progressBar'))$('#progressBar').style.width=(max>0?scrollY/max*100:0)+'%';header?.classList.toggle('is-solid',document.body.classList.contains('page-arch')||scrollY>40||menu?.classList.contains('is-open'));if(stage&&figures.length&&innerWidth>900){const r=stage.getBoundingClientRect(), total=stage.offsetHeight-innerHeight,p=Math.max(0,Math.min(1,-r.top/(total||1))),i=Math.min(figures.length-1,Math.floor(p*figures.length));figures.forEach((f,n)=>f.classList.toggle('is-active',n===i));caps.forEach((c,n)=>c.classList.toggle('is-active',n===i));if($('#stageNum'))$('#stageNum').textContent=String(i+1).padStart(2,'0');if($('#railFill'))$('#railFill').style.width=p*100+'%';header?.classList.toggle('is-over-media',r.top<=0&&r.bottom>96&&!menu?.classList.contains('is-open'));}}window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('resize',scroll);
+  const imgs=['real-sawtify.webp','real-jawebflow.webp','real-fidali.webp','real-ivisionad.webp'];$$('.index-row').forEach(row=>{const i=Number(row.dataset.index);row.querySelector('a')?.addEventListener('click',e=>{const target=$$('.work-m__item')[i];if(target){e.preventDefault();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}});row.addEventListener('mouseenter',()=>{if($('#previewImg'))$('#previewImg').src='assets/img/'+imgs[i];$('#preview')?.classList.add('is-on');});row.addEventListener('mouseleave',()=>$('#preview')?.classList.remove('is-on'));row.addEventListener('mousemove',e=>{const p=$('#preview');if(p){p.style.left=e.clientX+'px';p.style.top=e.clientY+'px';}});});
+  const reveals=$$('[data-reveal], [data-anim], .index-row');if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver((entries,o)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');o.unobserve(e.target);}}),{threshold:.05});reveals.forEach(e=>observer.observe(e));}else reveals.forEach(e=>e.classList.add('is-visible'));
+  // Scroll reveals only change opacity; layout and clickable areas stay in place.
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if ('IntersectionObserver' in window && !motionPreference.matches) {
+    const targets = $$('.work-heading, .work-m__text, .mcp-pitch, .mcp-card, .folio__head, .about__col, .contact__title, .adr-card');
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(({target, isIntersecting}) => {
+        if (!isIntersecting) return;
+        if (!motionPreference.matches && typeof target.animate === 'function') {
+          target.animate([{opacity: .82}, {opacity: 1}], {duration: 600, easing: 'ease-out'});
         }
-      }
-    }
-    if (fill) fill.style.width = (p * 100).toFixed(1) + '%';
-  }
-  window.addEventListener('resize', updateStage);
-
-  /* ---------------------------------------------------------
-     7. Révélations + nav active
-     --------------------------------------------------------- */
-  const revealEls = [...document.querySelectorAll('[data-reveal], [data-anim], .index-row')];
-  document.querySelectorAll('section, footer').forEach(sec => {
-    [...sec.querySelectorAll('[data-anim]')].forEach((el, i) => {
-      el.style.setProperty('--d', Math.min(i * 70, 350) + 'ms');
-    });
-  });
-  function syncReveals() {
-    revealEls.forEach(el => {
-      if (el.classList.contains('is-visible') || el.offsetParent === null) return;
-      const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 1.15) el.classList.add('is-visible');
-    });
-  }
-  function initSpotlight() {
-    if (!finePointer || reduceMotion) return;
-    document.querySelectorAll('.cap-card').forEach(card => {
-      card.addEventListener('pointermove', e => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-      }, { passive:true });
-    });
-  }
-  if ('IntersectionObserver' in window && !reduceMotion) {
-    const rev = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
-    }, { threshold:0.12, rootMargin:'0px 0px -6% 0px' });
-    revealEls.forEach(el => rev.observe(el));
-    window.addEventListener('resize', syncReveals, { passive:true });
-
-    const navLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
-    const navObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+        obs.unobserve(target);
       });
-    }, { rootMargin:'-40% 0px -55% 0px' });
-    ['index','work','portfolio','about','contact'].forEach(id => {
-      const el = document.getElementById(id); if (el) navObs.observe(el);
-    });
-  } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
+    }, {threshold: .05});
+    targets.forEach(target => observer.observe(target));
   }
-
-  /* ---------------------------------------------------------
-     8. Heure locale
-     --------------------------------------------------------- */
-  function updateClock() {
-    const el = document.getElementById('localTime');
-    if (!el) return;
-    try {
-      const t = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
-        hour:'2-digit', minute:'2-digit', hour12:false, timeZone:SITE.timezone || 'Africa/Algiers'
-      }).format(new Date());
-      el.textContent = `${I18N[lang]['ui.localtime']} ${t}`;
-    } catch (e) { el.textContent = ''; }
-  }
-  setInterval(updateClock, 30000);
-
-  /* ---------------------------------------------------------
-     9. Init
-     --------------------------------------------------------- */
-  initSpotlight();
-  applyLang(lang);
-  setCv(false);
-  onScroll();
-  updateStage();
-  syncBrandName();
-  requestAnimationFrame(syncReveals);
+  applyLang(lang);scroll();setInterval(clock,30000);
 })();

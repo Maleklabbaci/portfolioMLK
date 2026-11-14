@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Architecture Decision Records (ADRs), LLM token economics, OAuth 2.1 MCP design, and production trade-offs by Abdelmalek Labbaci.">
+  <meta name="theme-color" content="#EFEDE7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="System Architecture & ADRs — Abdelmalek Labbaci">
+  <meta property="og:description" content="Measured RAG vs. Context Caching benchmarks (−74% cost), OAuth 2.1 MCP server architecture, zero-KB voice tool-calling, and multi-tenant SaaS trade-offs.">
+  <meta property="og:image" content="apercu.png">
+  <title>Architecture &amp; ADRs — Abdelmalek Labbaci</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261114j">
+</head>
+<body class="page-arch">
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header is-solid" id="header">
+    <div class="header__inner wrap">
+      <a class="brand" href="index.html" aria-label="Back to portfolio">
+        <strong class="brand__full" data-bind="name">Abdelmalek Labbaci</strong><strong class="brand__short" aria-hidden="true" style="display:none">Abdelmalek</strong>
+        <small data-bind="role">AI Product Engineer · Full-Stack &amp; Backend AI Systems</small>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html" data-i18n="arch.backHome">← Portfolio</a>
+        <a href="#adr-001">ADR-001 · Cache/RAG</a>
+        <a href="#adr-002">ADR-002 · Voice Tools</a>
+        <a href="#adr-003">ADR-003 · MCP Server</a>
+        <a href="#adr-004">ADR-004 · Dialect TTS</a>
+        <a href="#adr-005">ADR-005 · Multi-Tenant</a>
+        <a class="nav__gh" data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a class="nav__cv" data-bind-href="cv" data-cv-download href="assets/abdelmalek_labbaci_resume_en.pdf" download><span data-i18n="nav.cv">CV</span> ↗</a>
+      </nav>
+      <div class="header__right">
+        <button class="lang" id="langToggle" type="button" aria-label="Switch language">FR</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false"><span class="menu-btn__label">MENU</span><span class="menu-btn__bars" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MOBILE MENU ================= -->
+  <div class="menu" id="mobileMenu" aria-hidden="true">
+    <div class="menu__langrow" role="group" aria-label="Language / Langue">
+      <button class="menu__langopt is-active" type="button" data-set-lang="en" aria-pressed="true">EN — English</button>
+      <button class="menu__langopt" type="button" data-set-lang="fr" aria-pressed="false">FR — Français</button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <a href="index.html"><span>00</span><span data-i18n="arch.backHome">← Back to Portfolio</span></a>
+      <a href="#adr-001"><span>01</span><span>ADR-001 · Hybrid RAG &amp; Cache</span></a>
+      <a href="#adr-002"><span>02</span><span>ADR-002 · Voice Tool Retrieval</span></a>
+      <a href="#adr-003"><span>03</span><span>ADR-003 · OAuth 2.1 MCP Server</span></a>
+      <a href="#adr-004"><span>04</span><span>ADR-004 · Live Call &amp; Darija TTS</span></a>
+      <a href="#adr-005"><span>05</span><span>ADR-005 · Multi-Tenant &amp; Webhooks</span></a>
+      <a data-bind-href="github" href="https://github.com/Maleklabbaci" target="_blank" rel="noopener noreferrer"><span>06</span><span>GitHub (35 Repos) ↗</span></a>
+    </nav>
+    <div class="menu__foot"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span data-bind="location">Global Remote · UTC+1</span></div>
+  </div>
+
+  <main id="top">
+    <!-- ================= ARCHITECTURE HERO ================= -->
+    <section class="arch-hero">
+      <div class="wrap">
+        <span class="tag" data-i18n="arch.kicker">ARCHITECTURE DECISION RECORDS (ADRs) · PRODUCTION SYSTEMS</span>
+        <h1 class="arch-hero__title"><span data-i18n="arch.t1">Why the system</span> <em data-i18n="arch.t2">is built this way.</em></h1>
+        <p class="arch-hero__lead" data-i18n="arch.lead">Anyone can wire an LLM prompt to a chat UI. Production AI engineering lives in the trade-offs: token &amp; cache economics, anti-hallucination boundaries, OAuth 2.1 agent security, dialectal voice latency, and multi-tenant isolation. Below are 5 real architectural decisions measured on my shipped codebases.</p>
+
+        <div class="arch-hero__stats">
+          <div class="arch-stat">
+            <strong>−74%</strong>
+            <span data-i18n="arch.stat1">Merchant catalog LLM cost (10m Context Cache)</span>
+          </div>
+          <div class="arch-stat">
+            <strong>−59%</strong>
+            <span data-i18n="arch.stat2">Voice call prompt overhead (On-demand Tool KB)</span>
+          </div>
+          <div class="arch-stat">
+            <strong>303 / 303</strong>
+            <span data-i18n="arch.stat3">Automated TTS, tag &amp; phonetic verification checks</span>
+          </div>
+          <div class="arch-stat">
+            <strong>OAuth 2.1</strong>
+            <span data-i18n="arch.stat4">PKCE MCP Server + SHA-256 Developer Keys</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ADR BODY ================= -->
+    <section class="arch-body">
+      <div class="wrap arch-layout">
+
+        <!-- Sticky TOC -->
+        <aside class="arch-toc" aria-label="Table of contents">
+          <span class="arch-toc__title" data-i18n="arch.tocTitle">DECISION LOG</span>
+          <a href="#adr-001"><b>ADR-001 · JAWEBFLOW</b><span data-i18n="adr1.short">Hybrid Bounded RAG vs. 10-min Context Caching</span></a>
+          <a href="#adr-002"><b>ADR-002 · JAWEBFLOW VOICE</b><span data-i18n="adr2.short">Zero-KB Voice Prompt &amp; Tool Retrieval</span></a>
+          <a href="#adr-003"><b>ADR-003 · SAWTIFY MCP</b><span data-i18n="adr3.short">OAuth 2.1 + PKCE Remote MCP &amp; SHA-256 Keys</span></a>
+          <a href="#adr-004"><b>ADR-004 · SAWTIFY LIVE v5</b><span data-i18n="adr4.short">Decoupled Live Reasoning &amp; Dialectal TTS</span></a>
+          <a href="#adr-005"><b>ADR-005 · SAAS &amp; WEBHOOKS</b><span data-i18n="adr5.short">Rule-First Social Hooks &amp; Supabase Multi-Tenancy</span></a>
+          <a href="index.html#work"><b>← PORTFOLIO</b><span data-i18n="arch.backFlagships">Return to Flagship Showcase</span></a>
+        </aside>
+
+        <!-- ADR Cards -->
+        <div class="adr-list">
+
+          <!-- ==================== ADR-001 ==================== -->
+          <article class="adr-card" id="adr-001">
+            <div class="adr-head">
+              <span class="adr-id">ADR-001 · JAWEBFLOW · COST &amp; LATENCY ECONOMICS</span>
+              <span class="adr-status" data-i18n="adr.status">IN PRODUCTION</span>
+            </div>
+            <h2 class="adr-title" data-i18n="adr1.title">Dynamic Threshold Routing Between Bounded RAG and Short-TTL Explicit Context Caching</h2>
+            <p class="adr-summary" data-i18n="adr1.summary">Multi-tenant SMB merchants have wildly uneven knowledge bases—ranging from 3 short FAQ notes (~256 chars) to 60+ product sheets (~20,000 chars). Applying one single retrieval strategy across all tenants either wastes tokens on every message or burns hourly cache storage fees.</p>
+
+            <div class="adr-diagram" aria-label="ADR-001 architecture diagram">
+              <svg viewBox="0 0 760 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="48" width="135" height="54" rx="8" fill="#1E2230" stroke="#4B5563"/>
+                <text x="77" y="72" fill="#F8F7F3" font-family="monospace" font-size="11" text-anchor="middle">Incoming Chat</text>
+                <text x="77" y="89" fill="#9CA3AF" font-family="monospace" font-size="9.5" text-anchor="middle">Web / IG / Messenger</text>
+                <path d="M145 75H185" stroke="#EC8F87" stroke-width="2"/>
+                <rect x="185" y="42" width="165" height="66" rx="8" fill="#27191C" stroke="#D0342C"/>
+                <text x="267" y="68" fill="#EC8F87" font-family="monospace" font-size="10.5" text-anchor="middle">cacheableChars() Gate</text>
+                <text x="267" y="85" fill="#F8F7F3" font-family="monospace" font-size="10" text-anchor="middle">Threshold: 4,096 tok</text>
+                <text x="267" y="99" fill="#9CA3AF" font-family="monospace" font-size="8.5" text-anchor="middle">(~16,400 chars floor)</text>
+                <path d="M350 58L405 34" stroke="#9CA3AF" stroke-width="1.6"/>
+                <path d="M350 92L405 116" stroke="#34D399" stroke-width="1.8"/>
+                <rect x="405" y="10" width="195" height="50" rx="8" fill="#1E2230" stroke="#4B5563"/>
+                <text x="502" y="31" fill="#F8F7F3" font-family="monospace" font-size="10" text-anchor="middle">&lt; 4,096 tok → Bounded RAG</text>
+                <text x="502" y="47" fill="#9CA3AF" font-family="monospace" font-size="9" text-anchor="middle">Relevant sections only (−48%)</text>
+                <rect x="405" y="90" width="195" height="50" rx="8" fill="#132A24" stroke="#34D399"/>
+                <text x="502" y="111" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">≥ 4,096 tok → Explicit Cache</text>
+                <text x="502" y="127" fill="#D1FAE5" font-family="monospace" font-size="9" text-anchor="middle">TTL = 10m · Read at 10% (−74%)</text>
+                <path d="M600 35L635 65" stroke="#9CA3AF" stroke-width="1.6"/>
+                <path d="M600 115L635 85" stroke="#34D399" stroke-width="1.8"/>
+                <rect x="635" y="48" width="115" height="54" rx="8" fill="#1E2230" stroke="#6B7280"/>
+                <text x="692" y="72" fill="#F8F7F3" font-family="monospace" font-size="10.5" text-anchor="middle">LLM Response</text>
+                <text x="692" y="88" fill="#9CA3AF" font-family="monospace" font-size="9" text-anchor="middle">Zero invented SKU</text>
+              </svg>
+            </div>
+
+            <div class="adr-cols">
+              <div class="adr-box">
+                <h3 data-i18n="adr.whyTitle">THE DECISION &amp; MECHANISM</h3>
+                <p data-i18n="adr1.decision">Implemented a pre-flight character/token gate (cacheableChars) before network calls. Prompts below Gemini's 4,096-token caching floor bypass cache creation (zero wasted round-trip) and run deterministic bounded RAG. Catalogs ≥ 4,096 tokens create an explicit context cache with a short 10-minute TTL—active conversations re-read the entire merchant catalog at 10% token price ($0.025/M vs $0.25/M).</p>
+              </div>
+              <div class="adr-box">
+                <h3 data-i18n="adr.altTitle">WHY NOT PINECONE OR 24H CACHING?</h3>
+                <p data-i18n="adr1.alt">External vector DBs add network hops, sync drift, and monthly base costs per tenant. Meanwhile, caching a 6,700-token merchant catalog for 24h costs ~$0.16/day in storage ($1.00/M tokens/hr)—more than a small shop saves! A 10-minute sliding window captures bursty customer sessions while letting idle caches expire for free.</p>
+              </div>
+            </div>
+
+            <div class="adr-table-wrap">
+              <table class="adr-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="adr1.th1">Workload (Measured in Code)</th>
+                    <th data-i18n="adr1.th2">Before</th>
+                    <th data-i18n="adr1.th3">After Routing</th>
+                    <th data-i18n="adr1.th4">Measured Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Site Chat (5,469-char KB)</td>
+                    <td>8,985 chars (~2,247 tok · $0.56 / 1k msgs)</td>
+                    <td>Bounded RAG: 4,687 chars (~1,172 tok · $0.29 / 1k)</td>
+                    <td><b>−48% input cost</b></td>
+                  </tr>
+                  <tr>
+                    <td>Merchant Chat · 60 SKUs (19,908 chars)</td>
+                    <td>~6,700 repeated tok ($0.65 / 1k msgs)</td>
+                    <td>Explicit Cache (TTL 10m, read at $0.025/M)</td>
+                    <td><b>−74% ($0.17 / 1k msgs)</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="adr-limit">
+              <strong data-i18n="adr.limitTitle">ACCEPTED TRADE-OFF &amp; KNOWN LIMIT</strong>
+              <p data-i18n="adr1.limit">Explicit context caching becomes net-positive at ~1,300+ messages/month for large catalogs; for ultra-low-traffic large catalogs (1 single message every few hours), the one-time cache write ($0.083/M) slightly offsets savings—mitigated by keeping TTL tight at 600s.</p>
+            </div>
+
+            <div class="adr-files">
+              <span data-i18n="adr.source">VERIFIED IN REPO:</span>
+              <a href="https://github.com/Maleklabbaci/Jawebflow/blob/main/docs/ECONOMIES_CACHE_RAG.md" target="_blank" rel="noopener noreferrer">docs/ECONOMIES_CACHE_RAG.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/Jawebflow" target="_blank" rel="noopener noreferrer">Maleklabbaci/Jawebflow ↗</a>
+            </div>
+          </article>
+
+          <!-- ==================== ADR-002 ==================== -->
+          <article class="adr-card" id="adr-002">
+            <div class="adr-head">
+              <span class="adr-id">ADR-002 · JAWEBFLOW VOICE · REALTIME AUDIO LATENCY &amp; GUARDRAILS</span>
+              <span class="adr-status" data-i18n="adr.status">IN PRODUCTION</span>
+            </div>
+            <h2 class="adr-title" data-i18n="adr2.title">Zero-KB Voice System Prompt with On-Demand Bounded Tool Retrieval</h2>
+            <p class="adr-summary" data-i18n="adr2.summary">In bidirectional WebRTC/Live voice sessions, every token inside the system prompt is re-billed on every spoken turn—even when the caller just says “Hello”, “Okay”, or “Thanks”. Stuffing the merchant's product catalog into the voice prompt inflated per-turn latency and token burn.</p>
+
+            <div class="adr-diagram" aria-label="ADR-002 voice tool architecture">
+              <svg viewBox="0 0 760 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="34" width="145" height="60" rx="8" fill="#1E2230" stroke="#4B5563"/>
+                <text x="82" y="60" fill="#F8F7F3" font-family="monospace" font-size="10.5" text-anchor="middle">Browser Mic Click</text>
+                <text x="82" y="77" fill="#9CA3AF" font-family="monospace" font-size="9" text-anchor="middle">1-use 2m Ephemeral Token</text>
+                <path d="M155 64H195" stroke="#EC8F87" stroke-width="2"/>
+                <rect x="195" y="34" width="175" height="60" rx="8" fill="#1E2230" stroke="#6B7280"/>
+                <text x="282" y="59" fill="#F8F7F3" font-family="monospace" font-size="10.5" text-anchor="middle">Live Voice Session</text>
+                <text x="282" y="77" fill="#34D399" font-family="monospace" font-size="9" text-anchor="middle">Rules only (~880 tok, −59%)</text>
+                <path d="M370 64H415" stroke="#EC8F87" stroke-width="2"/>
+                <rect x="415" y="28" width="165" height="72" rx="8" fill="#27191C" stroke="#D0342C"/>
+                <text x="497" y="53" fill="#EC8F87" font-family="monospace" font-size="10" text-anchor="middle">chercher_information()</text>
+                <text x="497" y="70" fill="#F8F7F3" font-family="monospace" font-size="9.5" text-anchor="middle">POST /api/voice/knowledge</text>
+                <text x="497" y="86" fill="#9CA3AF" font-family="monospace" font-size="8.5" text-anchor="middle">60 req / 10m / IP cap</text>
+                <path d="M580 64H615" stroke="#34D399" stroke-width="2"/>
+                <rect x="615" y="34" width="135" height="60" rx="8" fill="#132A24" stroke="#34D399"/>
+                <text x="682" y="59" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">≤ 900 chars Slice</text>
+                <text x="682" y="76" fill="#D1FAE5" font-family="monospace" font-size="8.8" text-anchor="middle">Empty if 0 term overlap</text>
+              </svg>
+            </div>
+
+            <div class="adr-cols">
+              <div class="adr-box">
+                <h3 data-i18n="adr.whyTitle">THE DECISION &amp; MECHANISM</h3>
+                <p data-i18n="adr2.decision">Stripped the entire merchant knowledge base out of the voice system prompt (reducing turn prompt from 8,676 chars to 3,520 chars: −59%). When—and only when—a caller asks a factual question, the voice model invokes chercher_information, returning at most 900 chars (~225 tokens). Conversational turns (“bonjour”, “merci”) trigger zero retrieval and pay zero KB tokens.</p>
+              </div>
+              <div class="adr-box">
+                <h3 data-i18n="adr2.guardTitle">HONEST RETRIEVAL GUARDRAILS</h3>
+                <p data-i18n="adr2.guard">Added stop-word stripping (“est”, “vos”, “quelle”) and a strict zero-overlap rule: if the caller asks about a product with zero matching terms in the merchant's KB, retrieval returns empty instead of falling back to generic company blurbs—forcing the agent to say “I don’t have that information” rather than hallucinating.</p>
+              </div>
+            </div>
+
+            <div class="adr-limit">
+              <strong data-i18n="adr.limitTitle">ACCEPTED TRADE-OFF &amp; KNOWN LIMIT</strong>
+              <p data-i18n="adr2.limit">Factual questions incur one lightweight HTTP tool round-trip compared to having the full KB pre-stuffed in context, traded deliberately for −59% per-turn cost and deterministic hallucination control.</p>
+            </div>
+
+            <div class="adr-files">
+              <span data-i18n="adr.source">VERIFIED IN REPO:</span>
+              <a href="https://github.com/Maleklabbaci/Jawebflow/blob/main/docs/AGENT_VOCAL.md" target="_blank" rel="noopener noreferrer">docs/AGENT_VOCAL.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/Jawebflow/blob/main/docs/ECONOMIES_CACHE_RAG.md" target="_blank" rel="noopener noreferrer">docs/ECONOMIES_CACHE_RAG.md ↗</a>
+            </div>
+          </article>
+
+          <!-- ==================== ADR-003 ==================== -->
+          <article class="adr-card" id="adr-003">
+            <div class="adr-head">
+              <span class="adr-id">ADR-003 · SAWTIFY · AGENT ECOSYSTEM &amp; API SECURITY</span>
+              <span class="adr-status" data-i18n="adr.status">IN PRODUCTION</span>
+            </div>
+            <h2 class="adr-title" data-i18n="adr3.title">Dual-Auth Remote MCP Server (OAuth 2.1 + PKCE &amp; SHA-256 Developer Keys)</h2>
+            <p class="adr-summary" data-i18n="adr3.summary">To make Sawtify's dialectal voice engine usable directly inside Claude Desktop, ChatGPT Developer Mode, Claude Code CLI, and n8n/Make workflows, the platform needed both interactive user consent (OAuth 2.1) and headless server-to-server keys without exposing raw secrets in storage.</p>
+
+            <div class="adr-diagram" aria-label="ADR-003 MCP OAuth 2.1 diagram">
+              <svg viewBox="0 0 760 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="36" width="150" height="60" rx="8" fill="#1E2230" stroke="#4B5563"/>
+                <text x="85" y="61" fill="#F8F7F3" font-family="monospace" font-size="10.5" text-anchor="middle">Claude / ChatGPT / CLI</text>
+                <text x="85" y="78" fill="#9CA3AF" font-family="monospace" font-size="9" text-anchor="middle">MCP Client</text>
+                <path d="M160 66H200" stroke="#EC8F87" stroke-width="2"/>
+                <rect x="200" y="36" width="165" height="60" rx="8" fill="#1E2230" stroke="#6B7280"/>
+                <text x="282" y="61" fill="#F8F7F3" font-family="monospace" font-size="10" text-anchor="middle">Cloudflare _middleware</text>
+                <text x="282" y="78" fill="#9CA3AF" font-family="monospace" font-size="8.8" text-anchor="middle">/mcp · /oauth/* · /.well-known</text>
+                <path d="M365 66H405" stroke="#EC8F87" stroke-width="2"/>
+                <rect x="405" y="26" width="175" height="80" rx="8" fill="#27191C" stroke="#D0342C"/>
+                <text x="492" y="50" fill="#EC8F87" font-family="monospace" font-size="10" text-anchor="middle">Auth &amp; Wallet Gate</text>
+                <text x="492" y="67" fill="#F8F7F3" font-family="monospace" font-size="9.2" text-anchor="middle">OAuth 2.1 + PKCE OR</text>
+                <text x="492" y="83" fill="#F8F7F3" font-family="monospace" font-size="9.2" text-anchor="middle">SHA-256 swt_beta_* Key</text>
+                <path d="M580 66H615" stroke="#34D399" stroke-width="2"/>
+                <rect x="615" y="30" width="135" height="72" rx="8" fill="#132A24" stroke="#34D399"/>
+                <text x="682" y="54" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">4 MCP Tools</text>
+                <text x="682" y="70" fill="#D1FAE5" font-family="monospace" font-size="8.8" text-anchor="middle">lister / generer_voix</text>
+                <text x="682" y="85" fill="#D1FAE5" font-family="monospace" font-size="8.8" text-anchor="middle">credits / historique</text>
+              </svg>
+            </div>
+
+            <div class="adr-cols">
+              <div class="adr-box">
+                <h3 data-i18n="adr.whyTitle">THE DECISION &amp; MECHANISM</h3>
+                <p data-i18n="adr3.decision">Built a spec-compliant MCP server (@modelcontextprotocol/sdk) behind Cloudflare edge routing (/mcp, /.well-known/oauth-authorization-server, dynamic client registration /oauth/register, PKCE S256). For CI/CLI &amp; backend integrations, Developer API v1 issues swt_beta_* tokens shown once at creation and persisted strictly as SHA-256 digests, gated behind a &gt;1,000-point wallet check.</p>
+              </div>
+              <div class="adr-box">
+                <h3 data-i18n="adr.altTitle">FAIL-SAFE SECURITY POSTURE</h3>
+                <p data-i18n="adr3.alt">If MCP_OAUTH_SECRET (&ge;32 chars) is absent at boot, the MCP connector disables itself cleanly rather than running with weak signing defaults. Database leaks cannot expose usable developer API keys because plaintext keys are never stored.</p>
+              </div>
+            </div>
+
+            <div class="adr-limit">
+              <strong data-i18n="adr.limitTitle">ACCEPTED TRADE-OFF &amp; KNOWN LIMIT</strong>
+              <p data-i18n="adr3.limit">Single-use OAuth authorization codes live in-memory on a single Render instance (5-minute TTL + PKCE); a server restart during those 5 minutes simply asks the user to re-approve once—avoiding Redis operational overhead at current scale.</p>
+            </div>
+
+            <div class="adr-files">
+              <span data-i18n="adr.source">VERIFIED IN REPO:</span>
+              <a href="https://github.com/Maleklabbaci/Sawtify/blob/main/docs/MCP-CONNECTEUR.md" target="_blank" rel="noopener noreferrer">docs/MCP-CONNECTEUR.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/Sawtify/blob/main/docs/developer-api-beta.md" target="_blank" rel="noopener noreferrer">docs/developer-api-beta.md ↗</a>
+            </div>
+          </article>
+
+          <!-- ==================== ADR-004 ==================== -->
+          <article class="adr-card" id="adr-004">
+            <div class="adr-head">
+              <span class="adr-id">ADR-004 · SAWTIFY LIVE v5 · DIALECTAL VOICE &amp; TELEPHONY</span>
+              <span class="adr-status" data-i18n="adr.status">IN PRODUCTION</span>
+            </div>
+            <h2 class="adr-title" data-i18n="adr4.title">Decoupling Live Multimodal Reasoning from Dialectal TTS Rendering &amp; Server-Side Call Metering</h2>
+            <p class="adr-summary" data-i18n="adr4.summary">End-to-end native speech-to-speech models handle English well, but flatten Algerian Darija pronunciation and prevent merchants from using their custom brand voice during live calls. In addition, client-side timers can be tampered with to bypass call billing.</p>
+
+            <div class="adr-cols">
+              <div class="adr-box">
+                <h3 data-i18n="adr.whyTitle">THE DECISION &amp; MECHANISM</h3>
+                <p data-i18n="adr4.decision">Defaulted Live Call output to hybrid mode (AGENT_LIVE_OUTPUT_MODE=sawtify_tts): Gemini Live processes bidirectional audio and executes tool calls with explicit order-confirmation guardrails, emitting text that Sawtify's 24 kHz TTS vocalizes with explicit Algerian Darija phonetics (capped at 700 chars/turn, 18 vocal req/min). Call lifecycle (/init → /start → /end) meters elapsed seconds strictly server-side; if TTS fails, the live transcript stays intact without inventing fallback audio.</p>
+              </div>
+              <div class="adr-box">
+                <h3 data-i18n="adr4.testTitle">VERIFICATION &amp; GSM HARDWARE BRIDGE</h3>
+                <p data-i18n="adr4.test">Backed by a 303-assertion automated verification suite (177 TTS chunking/mode checks, 22 phonetic name-matching tests across 90 spellings, 40 emotion/sound tag checks, plus multi-key Gemini routing &amp; retry tests) and an Android Kotlin Foreground Service (AudioPcmRelay.kt) relaying live PCM audio over WebSockets for GSM telephony.</p>
+              </div>
+            </div>
+
+            <div class="adr-limit">
+              <strong data-i18n="adr.limitTitle">ACCEPTED TRADE-OFF &amp; KNOWN LIMIT</strong>
+              <p data-i18n="adr4.limit">Routing Live text through Sawtify TTS adds latency over raw native Gemini audio, but delivers authentic Darija prosody and merchant voice consistency—with a single env flag (AGENT_LIVE_OUTPUT_MODE=gemini_live) to switch back when ultra-low latency outweighs dialectal fidelity.</p>
+            </div>
+
+            <div class="adr-files">
+              <span data-i18n="adr.source">VERIFIED IN REPO:</span>
+              <a href="https://github.com/Maleklabbaci/Sawtify/blob/main/docs/SAWTIFY-V5-LIVECALL.md" target="_blank" rel="noopener noreferrer">docs/SAWTIFY-V5-LIVECALL.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/Sawtify/blob/main/docs/RECAP-ce-qui-est-fait.md" target="_blank" rel="noopener noreferrer">docs/RECAP-ce-qui-est-fait.md ↗</a>
+            </div>
+          </article>
+
+          <!-- ==================== ADR-005 ==================== -->
+          <article class="adr-card" id="adr-005">
+            <div class="adr-head">
+              <span class="adr-id">ADR-005 · JAWEBFLOW · FIDALI · RAWDHA+ · MULTI-TENANT B2B ARCHITECTURE</span>
+              <span class="adr-status" data-i18n="adr.status">IN PRODUCTION</span>
+            </div>
+            <h2 class="adr-title" data-i18n="adr5.title">Rule-First Social Webhooks, Zero-Downtime Supabase Migration &amp; App-Less QR/Push UX</h2>
+            <p class="adr-summary" data-i18n="adr5.summary">Across B2B deployments (Instagram/Messenger automation in JawebFlow, retail loyalty in Fidali, nursery operations in RAWDHA+), the biggest failure modes are unnecessary LLM calls on deterministic events, silent client-SDK permission failures in serverless functions, and end-user app-install drop-off.</p>
+
+            <div class="adr-cols">
+              <div class="adr-box">
+                <h3 data-i18n="adr5.sub1">1. RULE-FIRST WEBHOOKS BEFORE LLM</h3>
+                <p data-i18n="adr5.p1">On Instagram webhooks (comments, story replies, DMs), a deterministic matcher (case/accent-insensitive, supporting French, Arabic &amp; Arabizi like “ch7al”) runs ahead of Gemini. High-volume triggers (“prix”, “livraison”, follow-gates) resolve without an LLM call—and keep working even when the merchant pauses AI.</p>
+              </div>
+              <div class="adr-box">
+                <h3 data-i18n="adr5.sub2">2. SUPABASE POSTGRES + ZERO-APP UX</h3>
+                <p data-i18n="adr5.p2">Migrated JawebFlow's core tables from Firestore REST to Supabase PostgreSQL (server-only service_role in Cloudflare Functions while keeping Firebase Auth tokens valid for zero-downtime migration). In Fidali &amp; RAWDHA+, combined Supabase RLS with cryptographic browser QR codes + VAPID Web Push so customers can join without an app download.</p>
+              </div>
+            </div>
+
+            <div class="adr-limit">
+              <strong data-i18n="adr.limitTitle">ACCEPTED TRADE-OFF &amp; KNOWN LIMIT</strong>
+              <p data-i18n="adr5.limit">Maintaining dual local Express dev servers and Cloudflare Pages production functions requires shared TypeScript modules (functions/_shared/*) so business rules never diverge between dev and edge runtime—documented explicitly in AUDIT.md.</p>
+            </div>
+
+            <div class="adr-files">
+              <span data-i18n="adr.source">VERIFIED IN REPOS:</span>
+              <a href="https://github.com/Maleklabbaci/Jawebflow/blob/main/SUPABASE_MIGRATION.md" target="_blank" rel="noopener noreferrer">SUPABASE_MIGRATION.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/Jawebflow/blob/main/docs/AUTOMATISATIONS.md" target="_blank" rel="noopener noreferrer">docs/AUTOMATISATIONS.md ↗</a>
+              <a href="https://github.com/Maleklabbaci/fidali" target="_blank" rel="noopener noreferrer">Maleklabbaci/fidali ↗</a>
+              <a href="https://github.com/Maleklabbaci/rawdativ2" target="_blank" rel="noopener noreferrer">Maleklabbaci/rawdativ2 ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT CTA ================= -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <span class="tag" data-i18n="contact.tag">GLOBAL OPPORTUNITIES · AI PRODUCT, FOUNDING &amp; INTEGRATION ROLES</span>
+        <h2 class="contact__title" data-reveal data-i18n="contact.title">Let’s build.</h2>
+        <a class="contact__mail" data-anim data-bind-href="email" href="mailto:abdelmaleklabbaci01@gmail.com"><span data-bind="email">abdelmaleklabbaci01@gmail.com</span><span aria-hidden="true">↗</span></a>
+        <p class="contact__phone" data-anim><span data-i18n="contact.phone">Direct / WhatsApp:</span> <a data-bind-href="phoneHref" href="tel:+213697660969"><span data-bind="phone">+213 697 660 969</span></a> · <a href="index.html" data-i18n="arch.backPortfolioLink">← Back to Full Portfolio (20 Projects)</a></p>
+        <div class="contact__bottom" data-anim>
+          <div class="socials" id="socials"></div>
+          <div class="contact__meta"><span data-bind="location">Global Remote · UTC+1</span><span id="localTime"></span></div>
+          <a class="contact__top" href="#top"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner" data-anim>
+      <span>© <span data-bind="year">2026</span> <span data-bind="name">Abdelmalek Labbaci</span> — <span data-i18n="footer.note">AI Product Engineer · Full-Stack &amp; Backend AI Systems</span></span>
+      <span data-i18n="footer.tagline">LLM Systems · MCP · Multi-Tenant SaaS · Product Velocity</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js?v=20261114b"></script>
+  <script src="assets/js/main.js?v=20261114j"></script>
+</body>
+</html>
